@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'; // 默认主题
 import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
+import Axios from "axios";
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
@@ -20,11 +21,14 @@ const i18n = new VueI18n({
     messages
 });
 
+Vue.prototype.$axios = Axios
+Axios.defaults.baseURL = 'http://127.0.0.1:8001'
+
 //使用钩子函数对路由进行权限跳转
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');
-    if (!role && to.path !== '/login') {
+    if (!role && to.path !== '/login' && to.path !== '/register') {
         next('/login');
     } else if (to.meta.permission) {
         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
