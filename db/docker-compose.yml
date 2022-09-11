@@ -1,0 +1,52 @@
+version: "2.6"  # docker-compose 版本号
+
+services:
+  mysql_master:  # 服务名
+    image: mysql/mysql-server:5.7  # 镜像
+    container_name: mysql_master  # 容器名
+    hostname: mysql_master
+    volumes:
+      - ./master:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+    networks:
+      separate:
+        ipv4_address: 172.20.0.2
+  mysql_slave1:  # 服务名
+    image: mysql/mysql-server:5.7  # 镜像
+    container_name: mysql_slave1  # 容器名
+    hostname: mysql_slave1
+    volumes:
+      - ./slave1:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+    networks:
+      separate:
+        ipv4_address: 172.20.0.3
+  mysql_slave2:  # 服务名
+    image: mysql/mysql-server:5.7  # 镜像
+    container_name: mysql_slave2  # 容器名
+    hostname: mysql_slave2
+    volumes:
+      - ./slave2:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+    networks:
+      separate:
+        ipv4_address: 172.20.0.4
+  redis_master:  # 服务名
+    image: redis  # 镜像
+    container_name: redis_master  # 容器名
+    hostname: redis_master
+    volumes:
+      - ./redis/data/master:/data
+    networks:
+      separate:
+        ipv4_address: 172.20.0.5
+
+networks:
+   separate:
+      ipam:
+         config:
+           - subnet: 172.20.0.0/16
+
