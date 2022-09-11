@@ -14,6 +14,8 @@
         <module>base</module>
         <module>common-service</module>
         <module>common-9001</module>
+        <module>admin-9101</module>
+        <module>admin-service</module>
     </modules>
 
     <name>vote</name>
@@ -136,6 +138,12 @@
             <dependency>
                 <groupId>club.kwcoder.vote</groupId>
                 <artifactId>common-service</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>club.kwcoder.vote</groupId>
+                <artifactId>admin-service</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 

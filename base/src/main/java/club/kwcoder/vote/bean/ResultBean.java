@@ -56,4 +56,18 @@ public class ResultBean<T> {
         return new ResultBean<>(100, true, message, data);
     }
 
+    /**
+     * @return 406, false, message, null
+     */
+    public static <T> ResultBean<T> notAcceptable(String message) {
+        return new ResultBean<>(406, false, message, null);
+    }
+
+    /**
+     * @return 500, false, 系统错误，请联系管理员解决, null
+     */
+    public static <T> ResultBean<T> systemError() {
+        return new ResultBean<>(500, false, "系统错误，请联系管理员解决", null);
+    }
+
 }

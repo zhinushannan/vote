@@ -20,6 +20,16 @@ export default new Router({
                     meta: { title: '系统首页' }
                 },
                 {
+                    path: '/candidate/save',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/candidate/save.vue'),
+                    meta: { title: '新建候选人' }
+                },
+                {
+                    path: '/candidate/list',
+                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/candidate/save.vue'),
+                    meta: { title: '查看候选人' }
+                },
+                {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
                     meta: { title: '自定义图标' }
