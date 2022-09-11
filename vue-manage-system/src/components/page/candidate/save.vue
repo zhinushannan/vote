@@ -22,6 +22,8 @@
                 action="http://localhost:8001/common/image/upload"
                 list-type="picture-card"
                 :limit="1"
+                :file-list="form.fileList"
+                :on-success="uploadSuccess"
                 :on-exceed="exceed"
                 :on-preview="handlePictureCardPreview">
               <i class="el-icon-plus"></i>
@@ -88,10 +90,36 @@ export default {
     exceed(file, fileList) {
       this.$message.info('只允许上传一张照片')
     },
+    uploadSuccess(response, file, fileList) {
+      this.form['imgUrl'] = response.data.url
+    },
     submit() {
-      this.form['introduction_html'] = this.html
-      this.form['introduction_md'] = this.form['content']
-      console.log(this.form)
+      this.form['introductionHtml'] = this.html
+      this.form['introductionMd'] = this.form['content']
+      if(!this.form['name']) {
+        this.$message.error("请输入姓名")
+        return
+      }
+      if(!this.form['abstractOfCandidate']) {
+        this.$message.error("请输入摘要")
+        return
+      }
+      if(!this.form['imgUrl']) {
+        this.$message.error("请上传图片（封面）")
+        return
+      }
+      if(!this.form['introductionMd']) {
+        this.$message.error("请输入简介")
+        return
+      }
+      let _this = this
+      _this.$axios.post("admin/candidate/save", _this.form).then((resp) => {
+        if (resp.data.flag) {
+          _this.$message.success(resp.data.message)
+          _this.form = {}
+        }
+        console.log(resp)
+      })
     }
   }
 }

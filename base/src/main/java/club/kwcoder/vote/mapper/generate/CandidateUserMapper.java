@@ -3,8 +3,11 @@ package club.kwcoder.vote.mapper.generate;
 import club.kwcoder.vote.dataobject.CandidateUserDO;
 import club.kwcoder.vote.dataobject.CandidateUserDOExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface CandidateUserMapper {
     long countByExample(CandidateUserDOExample example);
 

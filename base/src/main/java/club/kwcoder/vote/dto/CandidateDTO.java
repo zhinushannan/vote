@@ -13,7 +13,7 @@ public class CandidateDTO {
 
     private String name;
     private String abstractOfCandidate;
-    private String url;
+    private String imgUrl;
     private String introductionMd;
     private String introductionHtml;
     private Integer versionId = 0;

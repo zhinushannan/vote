@@ -110,7 +110,7 @@
       #{introductionMd,jdbcType=VARCHAR}, #{introductionHtml,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=TIMESTAMP}, 
       #{versionCurrent,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="club.kwcoder.vote.dataobject.CandidateDO">
+  <insert id="insertSelective" parameterType="club.kwcoder.vote.dataobject.CandidateDO" useGeneratedKeys="true" keyProperty="candidateId" keyColumn="candidate_id">
     insert into candidate
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="candidateId != null">
