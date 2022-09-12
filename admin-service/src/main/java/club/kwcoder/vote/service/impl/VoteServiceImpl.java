@@ -1,5 +1,6 @@
 package club.kwcoder.vote.service.impl;
 
+import club.kwcoder.vote.bean.PageBean;
 import club.kwcoder.vote.bean.ResultBean;
 import club.kwcoder.vote.dataobject.VoteCandidateDO;
 import club.kwcoder.vote.dataobject.VoteDO;
@@ -10,6 +11,7 @@ import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.mapper.generate.VoteMapper;
 import club.kwcoder.vote.mapper.generate.VoteUserMapper;
 import club.kwcoder.vote.service.VoteService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +50,12 @@ public class VoteServiceImpl implements VoteService {
         voteUserMapper.insertSelective(VoteUserDO.builder().voteId(voteDO.getVoteId()).userId(userId).build());
 
         return ResultBean.success("插入成功！");
+    }
+
+    @Override
+    public ResultBean<PageBean<VoteDTO>> list(Integer page, Integer size, int userId) {
+        PageHelper.startPage(page, size);
+
+        return null;
     }
 }

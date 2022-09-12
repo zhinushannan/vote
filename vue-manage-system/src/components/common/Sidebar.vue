@@ -99,16 +99,12 @@ export default {
               title: '新建投票'
             },
             {
-              index: '/vote/list/unPublish',
-              title: '查看投票（未发布）'
-            },
-            {
               index: '/vote/list/publish',
-              title: '查看投票（已发布）'
+              title: '查看投票'
             },
             {
               index: '/vote/list/finished',
-              title: '查看投票（已结束）'
+              title: '查看结果'
             },
           ]
         },

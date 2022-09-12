@@ -35,19 +35,14 @@ export default new Router({
                     meta: { title: '新建投票' }
                 },
                 {
-                    path: '/vote/list/unPublish',
-                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/vote/unPublish.vue'),
-                    meta: { title: '查看投票（未发布）' }
-                },
-                {
                     path: '/vote/list/publish',
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/vote/publish.vue'),
-                    meta: { title: '查看投票（已发布）' }
+                    meta: { title: '查看投票' }
                 },
                 {
                     path: '/vote/list/finished',
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/vote/finished.vue'),
-                    meta: { title: '查看投票（已结束）' }
+                    meta: { title: '查看结果' }
                 },
                 {
                     path: '/icon',

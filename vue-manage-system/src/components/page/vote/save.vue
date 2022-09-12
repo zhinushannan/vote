@@ -38,7 +38,7 @@
             </el-transfer>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submit">表单提交</el-button>
+            <el-button type="primary" @click="submit">发布投票</el-button>
           </el-form-item>
         </el-form>
       </div>
