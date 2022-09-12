@@ -3,16 +3,16 @@ package club.kwcoder.vote.controller;
 import club.kwcoder.vote.bean.PageBean;
 import club.kwcoder.vote.bean.ResultBean;
 import club.kwcoder.vote.dto.VoteDTO;
-import club.kwcoder.vote.service.VoteService;
+import club.kwcoder.vote.service.VoteAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("vote")
-public class VoteController {
+public class VoteAdminController {
 
     @Autowired
-    private VoteService voteService;
+    private VoteAdminService voteService;
 
     @PostMapping("save")
     public ResultBean<String> save(@RequestBody VoteDTO vote) {

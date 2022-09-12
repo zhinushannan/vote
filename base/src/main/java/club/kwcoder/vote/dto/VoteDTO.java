@@ -14,9 +14,14 @@ import java.util.List;
 @Builder
 public class VoteDTO {
 
+    public static final Integer ON = 0;
+    public static final Integer OFF = 1;
+
+    private Integer voteId;
     private String name;
     private String description;
     private Date deadline;
     private List<Integer> candidateIds;
+    private List<CandidateDTO> candidates;
 
 }

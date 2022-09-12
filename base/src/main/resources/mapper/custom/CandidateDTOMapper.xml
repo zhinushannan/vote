@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.kwcoder.vote.mapper.custom.CandidateDTOMapper">
+    <resultMap id="BaseResultMap" type="club.kwcoder.vote.dto.CandidateDTO">
+        <result column="candidate_id" jdbcType="INTEGER" property="candidateId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="abstract_of_candidate" jdbcType="VARCHAR" property="abstractOfCandidate" />
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+        <result column="introduction_md" jdbcType="VARCHAR" property="introductionMd" />
+        <result column="introduction_html" jdbcType="VARCHAR" property="introductionHtml" />
+        <result column="version_id" jdbcType="VARCHAR" property="versionId" />
+        <result column="version_description" jdbcType="VARCHAR" property="versionDescription" />
+    </resultMap>
+    
+    <select id="selectByCandidateIdsCurrentVersion" resultMap="BaseResultMap">
+        SELECT
+            candidate_versioin.candidate_id,
+            candidate_versioin.candidate_name AS `name`,
+            candidate_versioin.candidate_abstract AS abstract_of_candidate,
+            candidate_versioin.image AS img_url,
+            candidate_versioin.introduction_md,
+            candidate_versioin.introduction_html,
+            candidate_versioin.version_id,
+            candidate_versioin.version_description
+        FROM
+            candidate_versioin,
+            (
+                SELECT
+                    candidate_id,
+                    version_current
+                FROM
+                    candidate
+                WHERE
+                    candidate_id IN
+
+                <foreach collection="candidateIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+
+                ) AS candidate
+        WHERE
+            candidate_versioin.candidate_id = candidate.candidate_id
+          AND candidate_versioin.version_id = candidate.version_current;
+    </select>
+
+
+
+</mapper>

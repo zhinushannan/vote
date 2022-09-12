@@ -7,10 +7,9 @@ import club.kwcoder.vote.dataobject.VoteDO;
 import club.kwcoder.vote.dataobject.VoteUserDO;
 import club.kwcoder.vote.dto.VoteDTO;
 import club.kwcoder.vote.mapper.custom.VoteCandidateCustomMapper;
-import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.mapper.generate.VoteMapper;
 import club.kwcoder.vote.mapper.generate.VoteUserMapper;
-import club.kwcoder.vote.service.VoteService;
+import club.kwcoder.vote.service.VoteAdminService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class VoteServiceImpl implements VoteService {
+public class VoteAdminServiceImpl implements VoteAdminService {
 
     @Autowired
     private VoteMapper voteMapper;

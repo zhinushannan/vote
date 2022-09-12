@@ -4,6 +4,7 @@ import club.kwcoder.vote.bean.PageBean;
 import club.kwcoder.vote.bean.ResultBean;
 import club.kwcoder.vote.dataobject.*;
 import club.kwcoder.vote.dto.CandidateDTO;
+import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
 import club.kwcoder.vote.mapper.generate.CandidateMapper;
 import club.kwcoder.vote.mapper.generate.CandidateUserMapper;
 import club.kwcoder.vote.mapper.generate.CandidateVersioinMapper;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +31,9 @@ public class CandidateServiceImpl implements CandidateService {
     private CandidateUserMapper candidateUserMapper;
     @Autowired
     private CandidateVersioinMapper candidateVersioinMapper;
+
+    @Autowired
+    private CandidateDTOMapper candidateDTOMapper;
 
     @Override
     @Transactional
@@ -127,41 +132,20 @@ public class CandidateServiceImpl implements CandidateService {
         List<Integer> candidateIds = candidateUserDOS.stream().map(CandidateUserDO::getCandidateId).collect(Collectors.toList());
         long total = PageInfo.of(candidateUserDOS).getTotal();
 
-        // 查询candidate
+
+
+        // 查询candidateDto
         CandidateDOExample candidateDOExample = new CandidateDOExample();
         candidateDOExample.createCriteria()
                 .andCandidateIdIn(candidateIds);
-
-        // 查询candidateDto
-        CandidateVersioinDOExample candidateVersioinDOExample = new CandidateVersioinDOExample();
-        List<CandidateDTO> data = candidateMapper.selectByExample(candidateDOExample).stream().map(candidateDO -> {
-            candidateVersioinDOExample.clear();
-            candidateVersioinDOExample.createCriteria()
-                    .andCandidateIdEqualTo(candidateDO.getCandidateId())
-                    .andVersionIdEqualTo(candidateDO.getVersionCurrent());
-            List<CandidateVersioinDO> candidateVersioinDOS = candidateVersioinMapper.selectByExample(candidateVersioinDOExample);
-            if (candidateVersioinDOS.size() == 0) {
-                return null;
-            }
-            CandidateVersioinDO versioinDO = candidateVersioinDOS.get(0);
-            return CandidateDTO.builder()
-                    .candidateId(candidateDO.getCandidateId())
-                    .name(versioinDO.getCandidateName())
-                    .abstractOfCandidate(versioinDO.getCandidateAbstract())
-                    .imgUrl(versioinDO.getImage())
-                    .introductionMd(versioinDO.getIntroductionMd())
-                    .introductionHtml(versioinDO.getIntroductionHtml())
-                    .versionId(versioinDO.getVersionId())
-                    .versionDescription(versioinDO.getVersionDescription())
-                    .build();
-        }).collect(Collectors.toList());
-
+        List<Integer> ids = candidateMapper.selectByExample(candidateDOExample).stream().map(CandidateDO::getCandidateId).collect(Collectors.toList());
+        List<CandidateDTO> candidateDTOS = candidateDTOMapper.selectByCandidateIdsCurrentVersion(ids);
 
         return ResultBean.success("查询成功！", PageBean.<CandidateDTO>builder()
                 .page(page)
                 .size(size)
                 .total(total)
-                .data(data)
+                .data(candidateDTOS)
                 .build());
     }
 
