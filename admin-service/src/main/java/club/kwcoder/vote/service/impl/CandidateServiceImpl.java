@@ -57,6 +57,7 @@ public class CandidateServiceImpl implements CandidateService {
         candidateUserMapper.insertSelective(candidateUserDO);
 
         CandidateVersioinDO candidateVersioinDO = CandidateVersioinDO.builder()
+                .candidateId(candidateDO.getCandidateId())
                 .image(candidate.getImgUrl())
                 .candidateName(candidate.getName())
                 .candidateAbstract(candidate.getAbstractOfCandidate())
@@ -116,7 +117,9 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public ResultBean<PageBean<CandidateDTO>> list(Integer page, Integer size, Map<String, Object> conditions) {
         // 分页查询candidateId
-        PageHelper.startPage(page, size);
+        if (page > 0) {
+            PageHelper.startPage(page, size);
+        }
         CandidateUserDOExample candidateUserDOExample = new CandidateUserDOExample();
         candidateUserDOExample.createCriteria()
                 .andUserIdEqualTo((Integer) conditions.get("userId"));

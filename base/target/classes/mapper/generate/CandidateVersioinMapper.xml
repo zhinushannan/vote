@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.kwcoder.vote.mapper.generate.CandidateVersioinMapper">
+  <resultMap id="BaseResultMap" type="club.kwcoder.vote.dataobject.CandidateVersioinDO">
+    <result column="candidate_id" jdbcType="INTEGER" property="candidateId" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="candidate_name" jdbcType="VARCHAR" property="candidateName" />
+    <result column="candidate_abstract" jdbcType="VARCHAR" property="candidateAbstract" />
+    <result column="introduction_md" jdbcType="VARCHAR" property="introductionMd" />
+    <result column="introduction_html" jdbcType="VARCHAR" property="introductionHtml" />
+    <result column="modify_timestamp" jdbcType="TIMESTAMP" property="modifyTimestamp" />
+    <result column="version_id" jdbcType="INTEGER" property="versionId" />
+    <result column="version_description" jdbcType="VARCHAR" property="versionDescription" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    candidate_id, image, candidate_name, candidate_abstract, introduction_md, introduction_html, 
+    modify_timestamp, version_id, version_description
+  </sql>
+  <select id="selectByExample" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from candidate_versioin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDOExample">
+    delete from candidate_versioin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDO">
+    insert into candidate_versioin (candidate_id, image, candidate_name, 
+      candidate_abstract, introduction_md, introduction_html, 
+      modify_timestamp, version_id, version_description
+      )
+    values (#{candidateId,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR}, #{candidateName,jdbcType=VARCHAR}, 
+      #{candidateAbstract,jdbcType=VARCHAR}, #{introductionMd,jdbcType=VARCHAR}, #{introductionHtml,jdbcType=VARCHAR}, 
+      #{modifyTimestamp,jdbcType=TIMESTAMP}, #{versionId,jdbcType=INTEGER}, #{versionDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDO">
+    insert into candidate_versioin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="candidateId != null">
+        candidate_id,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="candidateName != null">
+        candidate_name,
+      </if>
+      <if test="candidateAbstract != null">
+        candidate_abstract,
+      </if>
+      <if test="introductionMd != null">
+        introduction_md,
+      </if>
+      <if test="introductionHtml != null">
+        introduction_html,
+      </if>
+      <if test="modifyTimestamp != null">
+        modify_timestamp,
+      </if>
+      <if test="versionId != null">
+        version_id,
+      </if>
+      <if test="versionDescription != null">
+        version_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="candidateId != null">
+        #{candidateId,jdbcType=INTEGER},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="candidateName != null">
+        #{candidateName,jdbcType=VARCHAR},
+      </if>
+      <if test="candidateAbstract != null">
+        #{candidateAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionMd != null">
+        #{introductionMd,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionHtml != null">
+        #{introductionHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTimestamp != null">
+        #{modifyTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionId != null">
+        #{versionId,jdbcType=INTEGER},
+      </if>
+      <if test="versionDescription != null">
+        #{versionDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDOExample" resultType="java.lang.Long">
+    select count(*) from candidate_versioin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update candidate_versioin
+    <set>
+      <if test="record.candidateId != null">
+        candidate_id = #{record.candidateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.image != null">
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.candidateName != null">
+        candidate_name = #{record.candidateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.candidateAbstract != null">
+        candidate_abstract = #{record.candidateAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionMd != null">
+        introduction_md = #{record.introductionMd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionHtml != null">
+        introduction_html = #{record.introductionHtml,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyTimestamp != null">
+        modify_timestamp = #{record.modifyTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.versionId != null">
+        version_id = #{record.versionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionDescription != null">
+        version_description = #{record.versionDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update candidate_versioin
+    set candidate_id = #{record.candidateId,jdbcType=INTEGER},
+      image = #{record.image,jdbcType=VARCHAR},
+      candidate_name = #{record.candidateName,jdbcType=VARCHAR},
+      candidate_abstract = #{record.candidateAbstract,jdbcType=VARCHAR},
+      introduction_md = #{record.introductionMd,jdbcType=VARCHAR},
+      introduction_html = #{record.introductionHtml,jdbcType=VARCHAR},
+      modify_timestamp = #{record.modifyTimestamp,jdbcType=TIMESTAMP},
+      version_id = #{record.versionId,jdbcType=INTEGER},
+      version_description = #{record.versionDescription,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
