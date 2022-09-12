@@ -91,6 +91,29 @@ export default {
         },
         {
           icon: 'el-icon-lx-calendar',
+          index: '14',
+          title: '投票管理',
+          subs: [
+            {
+              index: '/vote/save',
+              title: '新建投票'
+            },
+            {
+              index: '/vote/list/unPublish',
+              title: '查看投票（未发布）'
+            },
+            {
+              index: '/vote/list/publish',
+              title: '查看投票（已发布）'
+            },
+            {
+              index: '/vote/list/finished',
+              title: '查看投票（已结束）'
+            },
+          ]
+        },
+        {
+          icon: 'el-icon-lx-calendar',
           index: '3',
           title: '表单相关',
           subs: [
