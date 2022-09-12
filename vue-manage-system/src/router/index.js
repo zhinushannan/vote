@@ -26,7 +26,7 @@ export default new Router({
                 },
                 {
                     path: '/candidate/list',
-                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/candidate/save.vue'),
+                    component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/candidate/list.vue'),
                     meta: { title: '查看候选人' }
                 },
                 {

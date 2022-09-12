@@ -19,14 +19,6 @@ import lombok.NoArgsConstructor;
 public class CandidateDO implements Serializable {
     private Integer candidateId;
 
-    private String image;
-
-    private String candidateName;
-
-    private String introductionMd;
-
-    private String introductionHtml;
-
     private Date createTimestamp;
 
     private Integer versionCurrent;

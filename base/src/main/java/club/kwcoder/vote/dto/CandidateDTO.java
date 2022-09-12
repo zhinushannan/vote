@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CandidateDTO {
 
+    private Integer candidateId;
     private String name;
     private String abstractOfCandidate;
     private String imgUrl;

@@ -305,6 +305,76 @@ public class CandidateVersioinDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andCandidateAbstractIsNull() {
+            addCriterion("candidate_abstract is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractIsNotNull() {
+            addCriterion("candidate_abstract is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractEqualTo(String value) {
+            addCriterion("candidate_abstract =", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractNotEqualTo(String value) {
+            addCriterion("candidate_abstract <>", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractGreaterThan(String value) {
+            addCriterion("candidate_abstract >", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractGreaterThanOrEqualTo(String value) {
+            addCriterion("candidate_abstract >=", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractLessThan(String value) {
+            addCriterion("candidate_abstract <", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractLessThanOrEqualTo(String value) {
+            addCriterion("candidate_abstract <=", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractLike(String value) {
+            addCriterion("candidate_abstract like", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractNotLike(String value) {
+            addCriterion("candidate_abstract not like", value, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractIn(List<String> values) {
+            addCriterion("candidate_abstract in", values, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractNotIn(List<String> values) {
+            addCriterion("candidate_abstract not in", values, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractBetween(String value1, String value2) {
+            addCriterion("candidate_abstract between", value1, value2, "candidateAbstract");
+            return (Criteria) this;
+        }
+
+        public Criteria andCandidateAbstractNotBetween(String value1, String value2) {
+            addCriterion("candidate_abstract not between", value1, value2, "candidateAbstract");
+            return (Criteria) this;
+        }
+
         public Criteria andIntroductionMdIsNull() {
             addCriterion("introduction_md is null");
             return (Criteria) this;

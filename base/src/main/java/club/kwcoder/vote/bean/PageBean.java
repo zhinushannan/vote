@@ -16,6 +16,6 @@ public class PageBean<T> {
     private Integer page = 1;
     private Integer size = 8;
     private Long total;
-    private List<T> date;
+    private List<T> data;
 
 }

@@ -5,6 +5,7 @@
     <result column="candidate_id" jdbcType="INTEGER" property="candidateId" />
     <result column="image" jdbcType="VARCHAR" property="image" />
     <result column="candidate_name" jdbcType="VARCHAR" property="candidateName" />
+    <result column="candidate_abstract" jdbcType="VARCHAR" property="candidateAbstract" />
     <result column="introduction_md" jdbcType="VARCHAR" property="introductionMd" />
     <result column="introduction_html" jdbcType="VARCHAR" property="introductionHtml" />
     <result column="modify_timestamp" jdbcType="TIMESTAMP" property="modifyTimestamp" />
@@ -70,8 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    candidate_id, image, candidate_name, introduction_md, introduction_html, modify_timestamp, 
-    version_id, version_description
+    candidate_id, image, candidate_name, candidate_abstract, introduction_md, introduction_html, 
+    modify_timestamp, version_id, version_description
   </sql>
   <select id="selectByExample" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDOExample" resultMap="BaseResultMap">
     select
@@ -95,11 +96,13 @@
   </delete>
   <insert id="insert" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDO">
     insert into candidate_versioin (candidate_id, image, candidate_name, 
-      introduction_md, introduction_html, modify_timestamp, 
-      version_id, version_description)
+      candidate_abstract, introduction_md, introduction_html, 
+      modify_timestamp, version_id, version_description
+      )
     values (#{candidateId,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR}, #{candidateName,jdbcType=VARCHAR}, 
-      #{introductionMd,jdbcType=VARCHAR}, #{introductionHtml,jdbcType=VARCHAR}, #{modifyTimestamp,jdbcType=TIMESTAMP}, 
-      #{versionId,jdbcType=INTEGER}, #{versionDescription,jdbcType=VARCHAR})
+      #{candidateAbstract,jdbcType=VARCHAR}, #{introductionMd,jdbcType=VARCHAR}, #{introductionHtml,jdbcType=VARCHAR}, 
+      #{modifyTimestamp,jdbcType=TIMESTAMP}, #{versionId,jdbcType=INTEGER}, #{versionDescription,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="club.kwcoder.vote.dataobject.CandidateVersioinDO">
     insert into candidate_versioin
@@ -112,6 +115,9 @@
       </if>
       <if test="candidateName != null">
         candidate_name,
+      </if>
+      <if test="candidateAbstract != null">
+        candidate_abstract,
       </if>
       <if test="introductionMd != null">
         introduction_md,
@@ -138,6 +144,9 @@
       </if>
       <if test="candidateName != null">
         #{candidateName,jdbcType=VARCHAR},
+      </if>
+      <if test="candidateAbstract != null">
+        #{candidateAbstract,jdbcType=VARCHAR},
       </if>
       <if test="introductionMd != null">
         #{introductionMd,jdbcType=VARCHAR},
@@ -174,6 +183,9 @@
       <if test="record.candidateName != null">
         candidate_name = #{record.candidateName,jdbcType=VARCHAR},
       </if>
+      <if test="record.candidateAbstract != null">
+        candidate_abstract = #{record.candidateAbstract,jdbcType=VARCHAR},
+      </if>
       <if test="record.introductionMd != null">
         introduction_md = #{record.introductionMd,jdbcType=VARCHAR},
       </if>
@@ -199,6 +211,7 @@
     set candidate_id = #{record.candidateId,jdbcType=INTEGER},
       image = #{record.image,jdbcType=VARCHAR},
       candidate_name = #{record.candidateName,jdbcType=VARCHAR},
+      candidate_abstract = #{record.candidateAbstract,jdbcType=VARCHAR},
       introduction_md = #{record.introductionMd,jdbcType=VARCHAR},
       introduction_html = #{record.introductionHtml,jdbcType=VARCHAR},
       modify_timestamp = #{record.modifyTimestamp,jdbcType=TIMESTAMP},

@@ -3,10 +3,6 @@
 <mapper namespace="club.kwcoder.vote.mapper.generate.CandidateMapper">
   <resultMap id="BaseResultMap" type="club.kwcoder.vote.dataobject.CandidateDO">
     <id column="candidate_id" jdbcType="INTEGER" property="candidateId" />
-    <result column="image" jdbcType="VARCHAR" property="image" />
-    <result column="candidate_name" jdbcType="VARCHAR" property="candidateName" />
-    <result column="introduction_md" jdbcType="VARCHAR" property="introductionMd" />
-    <result column="introduction_html" jdbcType="VARCHAR" property="introductionHtml" />
     <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
     <result column="version_current" jdbcType="INTEGER" property="versionCurrent" />
   </resultMap>
@@ -69,8 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    candidate_id, image, candidate_name, introduction_md, introduction_html, create_timestamp, 
-    version_current
+    candidate_id, create_timestamp, version_current
   </sql>
   <select id="selectByExample" parameterType="club.kwcoder.vote.dataobject.CandidateDOExample" resultMap="BaseResultMap">
     select
@@ -103,30 +98,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="club.kwcoder.vote.dataobject.CandidateDO">
-    insert into candidate (candidate_id, image, candidate_name, 
-      introduction_md, introduction_html, create_timestamp, 
-      version_current)
-    values (#{candidateId,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR}, #{candidateName,jdbcType=VARCHAR}, 
-      #{introductionMd,jdbcType=VARCHAR}, #{introductionHtml,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=TIMESTAMP}, 
-      #{versionCurrent,jdbcType=INTEGER})
+    insert into candidate (candidate_id, create_timestamp, version_current
+      )
+    values (#{candidateId,jdbcType=INTEGER}, #{createTimestamp,jdbcType=TIMESTAMP}, #{versionCurrent,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="club.kwcoder.vote.dataobject.CandidateDO" useGeneratedKeys="true" keyProperty="candidateId" keyColumn="candidate_id">
     insert into candidate
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="candidateId != null">
         candidate_id,
-      </if>
-      <if test="image != null">
-        image,
-      </if>
-      <if test="candidateName != null">
-        candidate_name,
-      </if>
-      <if test="introductionMd != null">
-        introduction_md,
-      </if>
-      <if test="introductionHtml != null">
-        introduction_html,
       </if>
       <if test="createTimestamp != null">
         create_timestamp,
@@ -138,18 +119,6 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="candidateId != null">
         #{candidateId,jdbcType=INTEGER},
-      </if>
-      <if test="image != null">
-        #{image,jdbcType=VARCHAR},
-      </if>
-      <if test="candidateName != null">
-        #{candidateName,jdbcType=VARCHAR},
-      </if>
-      <if test="introductionMd != null">
-        #{introductionMd,jdbcType=VARCHAR},
-      </if>
-      <if test="introductionHtml != null">
-        #{introductionHtml,jdbcType=VARCHAR},
       </if>
       <if test="createTimestamp != null">
         #{createTimestamp,jdbcType=TIMESTAMP},
@@ -171,18 +140,6 @@
       <if test="record.candidateId != null">
         candidate_id = #{record.candidateId,jdbcType=INTEGER},
       </if>
-      <if test="record.image != null">
-        image = #{record.image,jdbcType=VARCHAR},
-      </if>
-      <if test="record.candidateName != null">
-        candidate_name = #{record.candidateName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.introductionMd != null">
-        introduction_md = #{record.introductionMd,jdbcType=VARCHAR},
-      </if>
-      <if test="record.introductionHtml != null">
-        introduction_html = #{record.introductionHtml,jdbcType=VARCHAR},
-      </if>
       <if test="record.createTimestamp != null">
         create_timestamp = #{record.createTimestamp,jdbcType=TIMESTAMP},
       </if>
@@ -197,10 +154,6 @@
   <update id="updateByExample" parameterType="map">
     update candidate
     set candidate_id = #{record.candidateId,jdbcType=INTEGER},
-      image = #{record.image,jdbcType=VARCHAR},
-      candidate_name = #{record.candidateName,jdbcType=VARCHAR},
-      introduction_md = #{record.introductionMd,jdbcType=VARCHAR},
-      introduction_html = #{record.introductionHtml,jdbcType=VARCHAR},
       create_timestamp = #{record.createTimestamp,jdbcType=TIMESTAMP},
       version_current = #{record.versionCurrent,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -210,18 +163,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="club.kwcoder.vote.dataobject.CandidateDO">
     update candidate
     <set>
-      <if test="image != null">
-        image = #{image,jdbcType=VARCHAR},
-      </if>
-      <if test="candidateName != null">
-        candidate_name = #{candidateName,jdbcType=VARCHAR},
-      </if>
-      <if test="introductionMd != null">
-        introduction_md = #{introductionMd,jdbcType=VARCHAR},
-      </if>
-      <if test="introductionHtml != null">
-        introduction_html = #{introductionHtml,jdbcType=VARCHAR},
-      </if>
       <if test="createTimestamp != null">
         create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
       </if>
@@ -233,11 +174,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="club.kwcoder.vote.dataobject.CandidateDO">
     update candidate
-    set image = #{image,jdbcType=VARCHAR},
-      candidate_name = #{candidateName,jdbcType=VARCHAR},
-      introduction_md = #{introductionMd,jdbcType=VARCHAR},
-      introduction_html = #{introductionHtml,jdbcType=VARCHAR},
-      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+    set create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
       version_current = #{versionCurrent,jdbcType=INTEGER}
     where candidate_id = #{candidateId,jdbcType=INTEGER}
   </update>
