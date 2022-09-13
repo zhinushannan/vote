@@ -10,6 +10,16 @@ export default new Router({
             redirect: '/dashboard'
         },
         {
+            path: '/vote/page/:id',
+            component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/vote/page.vue'),
+            meta: { title: '投票' }
+        },
+        {
+            path: '/404',
+            component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),
+            meta: { title: '404' }
+        },
+        {
             path: '/',
             component: () => import(/* webpackChunkName: "home" */ '../components/common/Home.vue'),
             meta: { title: '自述文件' },
@@ -44,6 +54,7 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/vote/finished.vue'),
                     meta: { title: '查看结果' }
                 },
+
                 {
                     path: '/icon',
                     component: () => import(/* webpackChunkName: "icon" */ '../components/page/Icon.vue'),
@@ -112,11 +123,7 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "permission" */ '../components/page/Permission.vue'),
                     meta: { title: '权限测试', permission: true }
                 },
-                {
-                    path: '/404',
-                    component: () => import(/* webpackChunkName: "404" */ '../components/page/404.vue'),
-                    meta: { title: '404' }
-                },
+
                 {
                     path: '/403',
                     component: () => import(/* webpackChunkName: "403" */ '../components/page/403.vue'),

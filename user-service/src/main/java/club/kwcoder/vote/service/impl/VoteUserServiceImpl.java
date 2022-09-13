@@ -1,24 +1,20 @@
 package club.kwcoder.vote.service.impl;
 
 import club.kwcoder.vote.bean.ResultBean;
-import club.kwcoder.vote.dataobject.VoteCandidateDO;
-import club.kwcoder.vote.dataobject.VoteCandidateDOExample;
-import club.kwcoder.vote.dataobject.VoteDO;
-import club.kwcoder.vote.dataobject.VoteDOExample;
+import club.kwcoder.vote.dataobject.*;
 import club.kwcoder.vote.dto.CandidateDTO;
 import club.kwcoder.vote.dto.VoteDTO;
 import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
-import club.kwcoder.vote.mapper.custom.VoteCandidateCustomMapper;
+import club.kwcoder.vote.mapper.generate.PollMapper;
 import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.mapper.generate.VoteMapper;
 import club.kwcoder.vote.service.VoteUserService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,8 +29,11 @@ public class VoteUserServiceImpl implements VoteUserService {
     @Autowired
     private CandidateDTOMapper candidateDTOMapper;
 
+    @Autowired
+    private PollMapper pollMapper;
+
     @Override
-    public ResultBean<VoteDTO> getVote(int voteId) {
+    public ResultBean<VoteDTO> getVote(int voteId, int userId) {
         VoteDOExample voteDOExample = new VoteDOExample();
         voteDOExample.createCriteria()
                 .andVoteIdEqualTo(voteId)
@@ -56,6 +55,13 @@ public class VoteUserServiceImpl implements VoteUserService {
         List<Integer> candidateIds = voteCandidateMapper.selectByExample(voteCandidateDOExample).stream().map(VoteCandidateDO::getCandidateId).collect(Collectors.toList());
         List<CandidateDTO> candidateDTOS = candidateDTOMapper.selectByCandidateIdsCurrentVersion(candidateIds);
 
+        PollDOExample pollDOExample = new PollDOExample();
+        pollDOExample.createCriteria()
+                .andVoteIdEqualTo(voteId)
+                .andUserIdEqualTo(userId);
+
+        Map<Integer, Integer> scores = pollMapper.selectByExample(pollDOExample).stream().collect(Collectors.toMap(PollDO::getCandidateId, PollDO::getScore));
+
         return ResultBean.success("获取成功！", VoteDTO.builder()
                 .voteId(voteId)
                 .name(voteDO.getTitle())
@@ -63,6 +69,7 @@ public class VoteUserServiceImpl implements VoteUserService {
                 .deadline(voteDO.getDeadline())
                 .candidateIds(candidateIds)
                 .candidates(candidateDTOS)
+                .scores(scores)
                 .build());
     }
 }

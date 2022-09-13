@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +24,7 @@ public class VoteDTO {
     private Date deadline;
     private List<Integer> candidateIds;
     private List<CandidateDTO> candidates;
+    private Map<Integer, Integer> scores;
+
 
 }

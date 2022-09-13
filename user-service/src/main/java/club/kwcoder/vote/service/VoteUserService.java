@@ -6,6 +6,6 @@ import club.kwcoder.vote.dto.VoteDTO;
 
 public interface VoteUserService {
 
-    ResultBean<VoteDTO> getVote(int voteId);
+    ResultBean<VoteDTO> getVote(int voteId, int userId);
 
 }

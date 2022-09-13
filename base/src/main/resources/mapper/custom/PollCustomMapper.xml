@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.kwcoder.vote.mapper.custom.PollCustomMapper">
+    <resultMap id="BaseResultMap" type="club.kwcoder.vote.dataobject.PollDO">
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="vote_id" jdbcType="INTEGER" property="voteId" />
+        <result column="candidate_id" jdbcType="INTEGER" property="candidateId" />
+        <result column="score" jdbcType="INTEGER" property="score" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="ip_addr" jdbcType="VARCHAR" property="ipAddr" />
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+    </resultMap>
+    <insert id="insertBatch" parameterType="club.kwcoder.vote.dataobject.PollDO">
+        insert into poll
+            (user_id, vote_id, candidate_id, score, ip, create_timestamp)
+            values
+        <foreach collection="polls" item="item" separator=",">
+            (#{item.userId}, #{item.voteId}, #{item.candidateId}, #{item.score}, #{item.ip}, #{item.createTimestamp})
+        </foreach>
+    </insert>
+</mapper>
