@@ -24,12 +24,12 @@
         />
         <el-table-column
             prop="deadline"
-            width="180"
+              width="180"
             label="截止时间"
             align="center"
             :formatter="dateFormat2"
         />
-        <el-table-column label="操作" width="300" align="center">
+        <el-table-column label="操作" width="400" align="center">
           <template slot-scope="scope">
             <el-button
                 type="text"
@@ -46,8 +46,14 @@
             <el-button
                 type="text"
                 icon="el-icon-edit"
-                @click="handleEdit(scope.$index, scope.row)"
-            >查看
+                @click="getSort(scope.$index, scope.row)"
+            >查看排名
+            </el-button>
+            <el-button
+                type="text"
+                icon="el-icon-edit"
+                @click="info(scope.$index, scope.row)"
+            >查看详情
             </el-button>
             <el-button
                 type="text"
@@ -60,6 +66,30 @@
         </el-table-column>
       </el-table>
     </div>
+
+
+    <el-dialog
+        :title="sortInfo.title"
+        :visible.sync="sortVisible"
+        width="25%">
+      <el-table
+          :data="sortInfo.data"
+          style="width: 100%"
+      >
+        <el-table-column
+            prop="candidateName"
+            label="姓名"
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="score"
+            label="得票数"
+            sortable
+            width="180">
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+
   </section>
 </template>
 
@@ -74,12 +104,14 @@ export default {
         total: 0,
         data: []
       },
+      sortVisible: false,
+      sortInfo: {}
     }
   },
   methods: {
     list() {
       let _this = this
-      _this.$axios.get(`admin/vote/list?page=${_this.page.page}&size=${_this.page.size}`).then((resp) => {
+      _this.$axios.get(`admin/vote/list?page=${_this.page.page}&size=${_this.page.size}&status=0`).then((resp) => {
         _this.page = resp.data.data
       })
     },
@@ -102,6 +134,21 @@ export default {
           _this.$message.success("停止成功")
           _this.list()
         }
+      })
+    },
+    getSort(index, row) {
+      let _this = this
+      _this.sortInfo = {}
+      _this.$axios.get(`admin/vote/sort?voteId=${row.voteId}`).then((resp) => {
+        _this.sortInfo["data"] = resp.data.data
+        _this.sortInfo["title"] = `${row.title}的排名`
+        _this.sortVisible = true
+      })
+    },
+    info(index, row) {
+      let _this = this
+      _this.$axios.get(`admin/vote/info?voteId=${row.voteId}`).then((resp) => {
+
       })
     }
   },

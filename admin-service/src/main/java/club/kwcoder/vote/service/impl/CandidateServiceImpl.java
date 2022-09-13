@@ -132,8 +132,6 @@ public class CandidateServiceImpl implements CandidateService {
         List<Integer> candidateIds = candidateUserDOS.stream().map(CandidateUserDO::getCandidateId).collect(Collectors.toList());
         long total = PageInfo.of(candidateUserDOS).getTotal();
 
-
-
         // 查询candidateDto
         CandidateDOExample candidateDOExample = new CandidateDOExample();
         candidateDOExample.createCriteria()

@@ -10,7 +10,7 @@
         <result column="deadline" jdbcType="TIMESTAMP" property="deadline"/>
     </resultMap>
 
-    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByUserIdAndStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
             vote.vote_id,
             vote.`status`,
@@ -24,7 +24,7 @@
         WHERE
             vote_user.user_id = #{userId}
           AND vote_user.vote_id = vote.vote_id
-          AND vote.`status` = 0
+          AND vote.`status` = #{status}
     </select>
 
 </mapper>

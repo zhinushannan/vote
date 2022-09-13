@@ -43,6 +43,36 @@
           AND candidate_versioin.version_id = candidate.version_current;
     </select>
 
+    <select id="selectByCandidateIdsCurrentVersionMap" resultMap="BaseResultMap">
+        SELECT
+        candidate_versioin.candidate_id,
+        candidate_versioin.candidate_name AS `name`,
+        candidate_versioin.candidate_abstract AS abstract_of_candidate,
+        candidate_versioin.image AS img_url,
+        candidate_versioin.introduction_md,
+        candidate_versioin.introduction_html,
+        candidate_versioin.version_id,
+        candidate_versioin.version_description
+        FROM
+        candidate_versioin,
+        (
+        SELECT
+        candidate_id,
+        version_current
+        FROM
+        candidate
+        WHERE
+        candidate_id IN
+
+        <foreach collection="candidateIds" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+        ) AS candidate
+        WHERE
+        candidate_versioin.candidate_id = candidate.candidate_id
+        AND candidate_versioin.version_id = candidate.version_current;
+    </select>
 
 
 </mapper>
