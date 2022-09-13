@@ -63,6 +63,11 @@ public class ResultBean<T> {
         return new ResultBean<>(406, false, message, null);
     }
 
+
+    public static <T> ResultBean<T> notFound(String message) {
+        return new ResultBean<>(404, false, message, null);
+    }
+
     /**
      * @return 500, false, 系统错误，请联系管理员解决, null
      */

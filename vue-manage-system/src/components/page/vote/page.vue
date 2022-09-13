@@ -60,6 +60,17 @@
       </div>
     </el-drawer>
 
+
+    <el-dialog
+        :visible.sync="dialogVisible"
+        width="50%"
+        :before-close="handleClose"
+        :show-close=false
+    >
+      <el-result icon="warning" title="当前投票不存在或已结束！">
+      </el-result>
+    </el-dialog>
+
   </el-container>
 
 </template>
@@ -75,7 +86,8 @@ export default {
       drawer: false,
       direction: 'ttb',
       drawerData: {},
-      poll: {}
+      poll: {},
+      dialogVisible: false
     }
   },
   methods: {
@@ -95,12 +107,19 @@ export default {
       _this.$axios.post("user/poll/do", data).then((resp) => {
         console.log(resp)
       })
+    },
+    handleClose() {
+      return
     }
   },
   mounted() {
     let _this = this
 
     _this.$axios.get(`user/vote/get?voteId=${_this.$route.path.split('/')[3]}`).then((resp) => {
+      if (resp.data.code === 403) {
+        _this.dialogVisible = true
+        return
+      }
       _this.vote = resp.data.data
     })
 

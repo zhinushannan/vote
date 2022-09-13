@@ -8,51 +8,54 @@
     </div>
     <div class="container">
       <el-table
-          :data="tableData"
+          :data="page.data"
           border
           class="table"
           ref="multipleTable"
-          header-cell-class-name="table-header"
-          @selection-change="handleSelectionChange"
       >
-        <el-table-column type="selection" width="55" align="center"></el-table-column>
-        <el-table-column prop="id" label="ID" width="55" align="center"></el-table-column>
-        <el-table-column prop="name" label="用户名"></el-table-column>
-        <el-table-column label="账户余额">
-          <template slot-scope="scope">￥{{scope.row.money}}</template>
-        </el-table-column>
-        <el-table-column label="头像(查看大图)" align="center">
+        <el-table-column prop="title" label="投票名称" align="center"/>
+        <el-table-column prop="description" label="投票描述" align="center"/>
+        <el-table-column
+            prop="createTimestamp"
+            width="180"
+            label="创建时间"
+            align="center"
+            :formatter="dateFormat1"
+        />
+        <el-table-column
+            prop="deadline"
+            width="180"
+            label="截止时间"
+            align="center"
+            :formatter="dateFormat2"
+        />
+        <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
-            <el-image
-                class="table-td-thumb"
-                :src="scope.row.thumb"
-                :preview-src-list="[scope.row.thumb]"
-            ></el-image>
-          </template>
-        </el-table-column>
-        <el-table-column prop="address" label="地址"></el-table-column>
-        <el-table-column label="状态" align="center">
-          <template slot-scope="scope">
-            <el-tag
-                :type="scope.row.state==='成功'?'success':(scope.row.state==='失败'?'danger':'')"
-            >{{scope.row.state}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="date" label="注册时间"></el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
+            <el-button
+                type="text"
+                icon="el-icon-document-copy"
+                v-clipboard:copy="'http://localhost:8080/#/vote/page/' + scope.row.voteId"
+                v-clipboard:success="function (){
+                  $message.success('复制成功！')
+                }"
+                v-clipboard:error="function () {
+                  $message.error('复制失败，请手动复制：http://localhost:8080/#/vote/page/' + scope.row.voteId)
+                }"
+            >复制链接
+            </el-button>
             <el-button
                 type="text"
                 icon="el-icon-edit"
                 @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button>
+            >查看
+            </el-button>
             <el-button
                 type="text"
-                icon="el-icon-delete"
+                icon="el-icon-stopwatch"
                 class="red"
-                @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button>
+                @click="stopVote(scope.$index, scope.row)"
+            >截止（提前截止）
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,9 +80,35 @@ export default {
     list() {
       let _this = this
       _this.$axios.get(`admin/vote/list?page=${_this.page.page}&size=${_this.page.size}`).then((resp) => {
-        console.log(resp)
+        _this.page = resp.data.data
+      })
+    },
+    dateFormat1(row) {
+      if (!row.createTimestamp) {
+        return "未指定"
+      }
+      return row.createTimestamp.slice(0, 19).replace("T", " ")
+    },
+    dateFormat2(row) {
+      if (!row.deadline) {
+        return "未指定"
+      }
+      return row.deadline.slice(0, 19).replace("T", " ")
+    },
+    stopVote(index, row) {
+      let _this = this
+      _this.$axios.get(`admin/vote/stop?voteId=${row.voteId}`).then((resp) => {
+        if (resp.data.flag) {
+          _this.$message.success("停止成功")
+          _this.list()
+        }
       })
     }
+  },
+  mounted() {
+    let _this = this
+
+    _this.list();
   }
 }
 </script>

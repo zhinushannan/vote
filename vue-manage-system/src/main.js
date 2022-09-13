@@ -10,12 +10,16 @@ import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
 import Axios from "axios";
+import VueClipboard from 'vue-clipboard2'
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
     size: 'small'
 });
+
+Vue.use(VueClipboard)
+
 const i18n = new VueI18n({
     locale: 'zh',
     messages
