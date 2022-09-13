@@ -11,6 +11,7 @@ import java.util.Map;
 public interface CandidateService {
 
     ResultBean<String> save(CandidateDTO candidate, Integer userId);
+
     ResultBean<String> update(CandidateDTO candidate, Integer userId);
 
     ResultBean<PageBean<CandidateDTO>> list(Integer page, Integer size, Map<String, Object> conditions);

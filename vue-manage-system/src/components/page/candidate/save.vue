@@ -11,10 +11,11 @@
       <div style="width: 100%">
         <el-form ref="form" :model="form">
           <el-form-item label="姓名" style="width: 30%">
-            <el-input v-model="form.name"  maxlength="10" :show-word-limit=true></el-input>
+            <el-input v-model="form.name" maxlength="10" :show-word-limit=true></el-input>
           </el-form-item>
           <el-form-item label="摘要" style="width: 30%">
-            <el-input type="textarea" v-model="form.abstractOfCandidate" maxlength="500" :show-word-limit=true></el-input>
+            <el-input type="textarea" v-model="form.abstractOfCandidate" maxlength="500"
+                      :show-word-limit=true></el-input>
           </el-form-item>
           <el-form-item label="上传图片" style="width: 30%">
             <br>
@@ -96,19 +97,19 @@ export default {
     submit() {
       this.form['introductionHtml'] = this.html
       this.form['introductionMd'] = this.form['content']
-      if(!this.form['name']) {
+      if (!this.form['name']) {
         this.$message.error("请输入姓名")
         return
       }
-      if(!this.form['abstractOfCandidate']) {
+      if (!this.form['abstractOfCandidate']) {
         this.$message.error("请输入摘要")
         return
       }
-      if(!this.form['imgUrl']) {
+      if (!this.form['imgUrl']) {
         this.$message.error("请上传图片（封面）")
         return
       }
-      if(!this.form['introductionMd']) {
+      if (!this.form['introductionMd']) {
         this.$message.error("请输入简介")
         return
       }

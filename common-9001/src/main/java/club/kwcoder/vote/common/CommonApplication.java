@@ -1,4 +1,4 @@
-package club.kwcoder.bookmall;
+package club.kwcoder.vote.common;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;

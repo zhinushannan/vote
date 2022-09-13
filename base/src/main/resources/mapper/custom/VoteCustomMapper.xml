@@ -11,18 +11,15 @@
     </resultMap>
 
     <select id="selectByUserIdAndStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT
-            vote.vote_id,
-            vote.`status`,
-            vote.create_timestamp,
-            vote.title,
-            vote.description,
-            vote.deadline
-        FROM
-            vote,
-            vote_user
-        WHERE
-            vote_user.user_id = #{userId}
+        SELECT vote.vote_id,
+               vote.`status`,
+               vote.create_timestamp,
+               vote.title,
+               vote.description,
+               vote.deadline
+        FROM vote,
+             vote_user
+        WHERE vote_user.user_id = #{userId}
           AND vote_user.vote_id = vote.vote_id
           AND vote.`status` = #{status}
     </select>

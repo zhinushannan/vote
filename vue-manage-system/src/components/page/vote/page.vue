@@ -9,10 +9,12 @@
       </header>
       <main>
         <el-row>
-          <el-col :span="1"><div style="height: 1px; width: 1px;"></div></el-col>
+          <el-col :span="1">
+            <div style="height: 1px; width: 1px;"></div>
+          </el-col>
           <el-col :span="22">
             <el-row :gutter="20">
-              <el-col :span="12"  v-for="item in vote.candidates">
+              <el-col :span="12" v-for="item in vote.candidates">
                 <el-card :body-style="{ padding: '0px' }">
                   <el-image
                       style="width: 100%; height: 15vh"

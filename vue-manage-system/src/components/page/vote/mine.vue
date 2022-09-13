@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item><i class="el-icon-rank"></i> 投票管理</el-breadcrumb-item>
-        <el-breadcrumb-item>查看投票</el-breadcrumb-item>
+        <el-breadcrumb-item>我的投票</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="container">
@@ -29,8 +29,21 @@
             align="center"
             :formatter="dateFormat2"
         />
-        <el-table-column label="操作" width="400" align="center">
+        <el-table-column label="操作" width="300" align="center">
           <template slot-scope="scope">
+            <el-button
+                type="text"
+                icon="el-icon-document-copy"
+                v-clipboard:copy="'http://localhost:8080/#/vote/page/' + scope.row.voteId"
+                v-clipboard:success="function (){
+                  $message.success('复制成功！')
+                }"
+                v-clipboard:error="function () {
+                  $message.error('复制失败，请手动复制：http://localhost:8080/#/vote/page/' + scope.row.voteId)
+                }"
+                :disabled="scope.row.status === 1"
+            >复制链接
+            </el-button>
             <el-button
                 type="text"
                 icon="el-icon-edit"
@@ -74,36 +87,26 @@
     <el-dialog
         :title="voteInfo.title"
         :visible.sync="voteVisible"
-        width="47%">
+        width="32%">
       <el-table
           :data="voteInfo.data"
           style="width: 100%"
       >
-        <el-table-column
-            prop="userId"
-            label="用户ID"
-            align="center"
-            width="60"/>
-        <el-table-column
-            prop="username"
-            label="用户姓名"
-            align="center"
-            width="180"/>
-        <el-table-column
-            prop="score"
-            label="投票分数"
-            align="center"
-            width="50"/>
         <el-table-column
             prop="candidateName"
             label="候选人"
             align="center"
             width="150"/>
         <el-table-column
+            prop="score"
+            label="投票分数"
+            align="center"
+            width="50"/>
+        <el-table-column
             prop="createTimestamp"
             label="投票时间"
             align="center"
-            :formatter="dateFormat1"
+            :formatter="dateFormat3"
             width="180"/>
         <el-table-column
             prop="ip"
@@ -118,7 +121,7 @@
 
 <script>
 export default {
-  name: "publish",
+  name: "mine",
   data() {
     return {
       page: {
@@ -136,7 +139,7 @@ export default {
   methods: {
     list() {
       let _this = this
-      _this.$axios.get(`admin/vote/list?page=${_this.page.page}&size=${_this.page.size}&status=0`).then((resp) => {
+      _this.$axios.get(`user/vote/list?page=${_this.page.page}&size=${_this.page.size}`).then((resp) => {
         _this.page = resp.data.data
       })
     },
@@ -152,10 +155,16 @@ export default {
       }
       return row.deadline.slice(0, 19).replace("T", " ")
     },
+    dateFormat3(row) {
+      if (!row.createTimestamp) {
+        return ""
+      }
+      return row.createTimestamp.slice(0, 19).replace("T", " ")
+    },
     getSort(index, row) {
       let _this = this
       _this.sortInfo = {}
-      _this.$axios.get(`admin/vote/sort?voteId=${row.voteId}`).then((resp) => {
+      _this.$axios.get(`user/vote/sort?voteId=${row.voteId}`).then((resp) => {
         _this.sortInfo["data"] = resp.data.data
         _this.sortInfo["title"] = `${row.title}的排名`
         _this.sortVisible = true
@@ -164,7 +173,7 @@ export default {
     info(index, row) {
       let _this = this
       _this.voteInfo = {}
-      _this.$axios.get(`admin/poll/info?voteId=${row.voteId}`).then((resp) => {
+      _this.$axios.get(`user/poll/info?voteId=${row.voteId}`).then((resp) => {
         _this.voteInfo["data"] = resp.data.data
         _this.voteInfo["title"] = `${row.title}的详情`
         console.log(_this.voteInfo)

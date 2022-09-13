@@ -1,11 +1,13 @@
 package club.kwcoder.vote.dataobject;
 
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * province
- * @author 
+ *
+ * @author
  */
 @Data
 public class ProvinceDO implements Serializable {

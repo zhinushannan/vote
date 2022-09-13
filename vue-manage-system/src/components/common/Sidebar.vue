@@ -106,6 +106,10 @@ export default {
               index: '/vote/list/finished',
               title: '查看结果'
             },
+            {
+              index: '/vote/mine',
+              title: '我的投票'
+            },
           ]
         },
         {

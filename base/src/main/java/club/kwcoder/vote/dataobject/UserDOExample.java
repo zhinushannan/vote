@@ -497,6 +497,7 @@ public class UserDOExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {

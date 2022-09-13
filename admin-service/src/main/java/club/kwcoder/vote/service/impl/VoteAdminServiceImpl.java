@@ -3,15 +3,16 @@ package club.kwcoder.vote.service.impl;
 import club.kwcoder.vote.bean.PageBean;
 import club.kwcoder.vote.bean.ResultBean;
 import club.kwcoder.vote.dataobject.VoteCandidateDO;
+import club.kwcoder.vote.dataobject.VoteCandidateDOExample;
 import club.kwcoder.vote.dataobject.VoteDO;
 import club.kwcoder.vote.dataobject.VoteUserDO;
-import club.kwcoder.vote.dto.CandidateDTO;
 import club.kwcoder.vote.dto.PollSortDTO;
 import club.kwcoder.vote.dto.VoteDTO;
 import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
 import club.kwcoder.vote.mapper.custom.PollSortDTOCustomMapper;
 import club.kwcoder.vote.mapper.custom.VoteCandidateCustomMapper;
 import club.kwcoder.vote.mapper.custom.VoteCustomMapper;
+import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.mapper.generate.VoteMapper;
 import club.kwcoder.vote.mapper.generate.VoteUserMapper;
 import club.kwcoder.vote.service.VoteAdminService;
@@ -43,6 +44,9 @@ public class VoteAdminServiceImpl implements VoteAdminService {
 
     @Autowired
     private CandidateDTOMapper candidateDTOMapper;
+
+    @Autowired
+    private VoteCandidateMapper voteCandidateMapper;
 
     @Override
     public ResultBean<String> save(VoteDTO vote, int userId) {
@@ -97,9 +101,21 @@ public class VoteAdminServiceImpl implements VoteAdminService {
 
     @Override
     public ResultBean<List<PollSortDTO>> sort(Integer voteId) {
-        List<PollSortDTO> pollSortDTOs = pollSortDTOCustomMapper.selectByVoteIdGroupByCandidateIdCountScore(voteId);
-        Map<Integer, CandidateDTO> candidateDTOMap = candidateDTOMapper.selectByCandidateIdsCurrentVersionMap(pollSortDTOs.stream().map(PollSortDTO::getCandidateId).collect(Collectors.toList()));
-        pollSortDTOs.forEach(pollSortDTO -> pollSortDTO.setCandidateName(candidateDTOMap.get(pollSortDTO.getCandidateId()).getName()));
+        VoteCandidateDOExample voteCandidateDOExample = new VoteCandidateDOExample();
+        voteCandidateDOExample.createCriteria().andVoteIdEqualTo(voteId);
+        List<Integer> candidateIds = voteCandidateMapper.selectByExample(voteCandidateDOExample).stream().map(VoteCandidateDO::getCandidateId).collect(Collectors.toList());
+
+        Map<Integer, PollSortDTO> pollSortDTOMap = pollSortDTOCustomMapper.selectByVoteIdGroupByCandidateIdCountScoreMap(voteId);
+        List<PollSortDTO> pollSortDTOs = candidateDTOMapper.selectByCandidateIdsCurrentVersion(candidateIds).stream().map(candidateDTO -> {
+            PollSortDTO pollSortDTO = pollSortDTOMap.get(candidateDTO.getCandidateId());
+            return PollSortDTO.builder()
+                    .voteId(voteId)
+                    .candidateId(candidateDTO.getCandidateId())
+                    .score(pollSortDTO == null ? 0 : pollSortDTO.getScore())
+                    .candidateName(candidateDTO.getName())
+                    .build();
+        }).collect(Collectors.toList());
+
         return ResultBean.success("查询成功！", pollSortDTOs);
     }
 

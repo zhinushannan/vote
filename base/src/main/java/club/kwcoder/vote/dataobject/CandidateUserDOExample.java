@@ -226,6 +226,7 @@ public class CandidateUserDOExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {

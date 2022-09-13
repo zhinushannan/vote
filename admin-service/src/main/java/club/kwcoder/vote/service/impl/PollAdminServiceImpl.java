@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +35,10 @@ public class PollAdminServiceImpl implements PollAdminService {
         pollDOExample.createCriteria().andVoteIdEqualTo(voteId);
 
         List<PollDO> pollDOS = pollMapper.selectByExample(pollDOExample);
+
+        if (pollDOS.size() == 0) {
+            return ResultBean.success("查询成功！");
+        }
 
         List<Integer> candidateIds = pollDOS.stream().map(PollDO::getCandidateId).distinct().collect(Collectors.toList());
         Map<Integer, CandidateDTO> candidateDTOMap = candidateDTOMapper.selectByCandidateIdsCurrentVersionMap(candidateIds);

@@ -20,7 +20,7 @@
                 v-model="form.deadline"
                 type="datetime"
                 :picker-options="pickerOptions"
-                placeholder="选择日期时间" />
+                placeholder="选择日期时间"/>
             <p style="color: red; font-size: 5px">不选择表示永久有效，除非您手动截止</p>
           </el-form-item>
           <el-form-item label="候选人">
@@ -53,8 +53,8 @@ export default {
     return {
       form: {},
       candidates: [],
-      pickerOptions:{
-        disabledDate (time) {
+      pickerOptions: {
+        disabledDate(time) {
           return time.getTime() < Date.now()
         }
       },

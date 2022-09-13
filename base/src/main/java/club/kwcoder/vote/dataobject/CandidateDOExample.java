@@ -287,6 +287,7 @@ public class CandidateDOExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {

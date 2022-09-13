@@ -36,7 +36,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public ResultBean<List<ProvinceDO>> register(RegisterDTO register) {
         if (!StrCustomUtils.isLengthAllowContainsAll(register.getPassword(), 6, 11) ||
-                register.getPhone().length() != 11||
+                register.getPhone().length() != 11 ||
                 !ReUtil.isMatch("^1[3456789]\\d{9}$", register.getPhone())) {
             return ResultBean.forbidden("参数有误！");
         }

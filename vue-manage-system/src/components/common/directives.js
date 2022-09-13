@@ -47,7 +47,8 @@ Vue.directive('dialogDrag', {
             } else {
                 styL = +styL.replace(/\px/g, '');
                 styT = +styT.replace(/\px/g, '');
-            };
+            }
+            ;
 
             document.onmousemove = function (e) {
                 // 通过事件委托，计算移动的距离 

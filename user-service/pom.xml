@@ -23,6 +23,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>club.kwcoder.vote</groupId>
             <artifactId>base</artifactId>

@@ -10,6 +10,7 @@ public interface RegisterService {
 
     /**
      * 注册的方法
+     *
      * @param register 注册传输对象
      * @return 返回统一返回值
      */
@@ -17,6 +18,7 @@ public interface RegisterService {
 
     /**
      * 完善信息
+     *
      * @param register 注册传输对象
      * @return 返回统一返回值
      */
@@ -24,6 +26,7 @@ public interface RegisterService {
 
     /**
      * 添加权限
+     *
      * @param register 注册传输对象
      * @return 返回统一返回值
      */

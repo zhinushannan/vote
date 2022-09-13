@@ -24,7 +24,7 @@
         />
         <el-table-column
             prop="deadline"
-              width="180"
+            width="180"
             label="截止时间"
             align="center"
             :formatter="dateFormat2"
@@ -107,28 +107,28 @@
             prop="username"
             label="用户姓名"
             align="center"
-            width="180" />
+            width="180"/>
         <el-table-column
             prop="score"
             label="投票分数"
             align="center"
-            width="50" />
+            width="50"/>
         <el-table-column
             prop="candidateName"
             label="候选人"
             align="center"
-            width="150" />
+            width="150"/>
         <el-table-column
             prop="createTimestamp"
             label="投票时间"
             align="center"
             :formatter="dateFormat1"
-            width="180" />
+            width="180"/>
         <el-table-column
             prop="ip"
             label="投票IP"
             align="center"
-            width="100" />
+            width="100"/>
       </el-table>
     </el-dialog>
 

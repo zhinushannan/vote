@@ -707,6 +707,7 @@ public class CandidateVersioinDOExample {
     }
 
     /**
+     *
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {

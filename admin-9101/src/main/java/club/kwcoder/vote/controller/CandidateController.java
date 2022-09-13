@@ -46,7 +46,6 @@ public class CandidateController {
 
     @GetMapping("delete")
     public ResultBean<String> delete(@RequestParam("candidateId") Integer candidateId) {
-        Integer userId = 6;
         return candidateService.delete(candidateId);
     }
 

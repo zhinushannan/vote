@@ -1,24 +1,23 @@
 package club.kwcoder.vote.service.impl;
 
 import club.kwcoder.vote.bean.ResultBean;
-import club.kwcoder.vote.dataobject.CandidateDOExample;
-import club.kwcoder.vote.dataobject.PollDO;
-import club.kwcoder.vote.dataobject.PollDOExample;
-import club.kwcoder.vote.dataobject.VoteDOExample;
+import club.kwcoder.vote.dataobject.*;
 import club.kwcoder.vote.dto.PollDTO;
+import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
 import club.kwcoder.vote.mapper.custom.PollCustomMapper;
 import club.kwcoder.vote.mapper.generate.CandidateMapper;
 import club.kwcoder.vote.mapper.generate.PollMapper;
+import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.mapper.generate.VoteMapper;
 import club.kwcoder.vote.service.PollUserService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.function.*;
-import java.util.stream.Collector;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +34,14 @@ public class PollUserServiceImpl implements PollUserService {
 
     @Autowired
     private CandidateMapper candidateMapper;
+
+    @Autowired
+    private CandidateDTOMapper candidateDTOMapper;
+
+    @Autowired
+    private VoteCandidateMapper voteCandidateMapper;
+
+
     @Override
     @Transactional
     public ResultBean<String> doPoll(PollDTO poll, int userId, String ipAddr) {
@@ -82,5 +89,36 @@ public class PollUserServiceImpl implements PollUserService {
         pollCustomMapper.insertBatch(polls);
 
         return ResultBean.success("投票成功！");
+    }
+
+    @Override
+    public ResultBean<List<PollDTO>> info(Integer voteId, int userId) {
+        // 查询投票记录
+        PollDOExample pollDOExample = new PollDOExample();
+        pollDOExample.createCriteria()
+                .andVoteIdEqualTo(voteId)
+                .andUserIdEqualTo(userId);
+        Map<Integer, PollDO> pollDOMap = pollCustomMapper.selectByExample(pollDOExample);
+
+        // 查询所有候选人
+        VoteCandidateDOExample voteCandidateDOExample = new VoteCandidateDOExample();
+        voteCandidateDOExample.createCriteria()
+                .andVoteIdEqualTo(voteId);
+        List<Integer> candidateIds = voteCandidateMapper.selectByExample(voteCandidateDOExample).stream().map(VoteCandidateDO::getCandidateId).collect(Collectors.toList());
+
+        // 组装对象
+        List<PollDTO> pollDTOS = candidateDTOMapper.selectByCandidateIdsCurrentVersion(candidateIds).stream().map(candidateDTO -> {
+            PollDO pollDO = pollDOMap.get(candidateDTO.getCandidateId());
+            return PollDTO.builder()
+                    .voteId(voteId)
+                    .score(pollDO == null ? 0 : pollDO.getScore())
+                    .ip(pollDO == null ? null : pollDO.getIp())
+                    .createTimestamp(pollDO == null ? null : pollDO.getCreateTimestamp())
+                    .userId(userId)
+                    .candidateName(candidateDTO.getName())
+                    .build();
+        }).collect(Collectors.toList());
+
+        return ResultBean.success("查询成功！", pollDTOS);
     }
 }

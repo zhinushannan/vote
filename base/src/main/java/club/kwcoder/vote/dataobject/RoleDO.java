@@ -1,11 +1,13 @@
 package club.kwcoder.vote.dataobject;
 
-import java.io.Serializable;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * role
- * @author 
+ *
+ * @author
  */
 @Data
 public class RoleDO implements Serializable {

@@ -24,7 +24,9 @@ The web management system solution based on Vue2 and Element-UI。[live demo](ht
 
 ## Preface
 
-The scheme as a set of multi-function background frame templates, suitable for most of the WEB management system development. Convenient development fast simple good components based on Vue2 and Element-UI. Color separation of color style, support manual switch themes, and it is convenient to use a custom theme color.
+The scheme as a set of multi-function background frame templates, suitable for most of the WEB management system
+development. Convenient development fast simple good components based on Vue2 and Element-UI. Color separation of color
+style, support manual switch themes, and it is convenient to use a custom theme color.
 
 ## Function
 
@@ -125,7 +127,8 @@ Quill editor component for Vue2. Github : [vue-quill-editor](https://github.com/
 
 ### mavonEditor
 
-A markdown editor based on Vue that supports a variety of personalized features. Github: [mavonEditor](https://github.com/hinesboy/mavonEditor)
+A markdown editor based on Vue that supports a variety of personalized features.
+Github: [mavonEditor](https://github.com/hinesboy/mavonEditor)
 
 ### vue-cropperjs
 
@@ -179,7 +182,8 @@ The second step to enter 'src/App.vue' and change into green theme.
 /*@import "../static/css/theme-green/color-green.css";   !*浅绿色主题*!*/
 ```
 
-Finally,enter 'src/components/common/Sidebar.vue' and find el-menu Tags,delete 'background-color/text-color/active-text-color'。
+Finally,enter 'src/components/common/Sidebar.vue' and find el-menu Tags,delete '
+background-color/text-color/active-text-color'。
 
 ## Screenshot
 

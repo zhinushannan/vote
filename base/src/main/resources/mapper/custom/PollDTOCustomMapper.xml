@@ -17,4 +17,12 @@
         order by score desc;
     </select>
 
+    <select id="selectByVoteIdGroupByCandidateIdCountScoreMap" resultMap="BaseResultMap">
+        select vote_id, candidate_id, sum(score) as score
+        from poll
+        where vote_id = #{voteId}
+        group by candidate_id
+        order by score desc;
+    </select>
+
 </mapper>

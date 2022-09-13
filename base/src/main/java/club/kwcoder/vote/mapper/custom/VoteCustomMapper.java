@@ -12,4 +12,5 @@ public interface VoteCustomMapper {
     List<VoteDO> selectByUserIdAndStatus(@Param("userId") Integer userId,
                                          @Param("status") Integer status);
 
+
 }

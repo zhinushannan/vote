@@ -2,10 +2,10 @@ package club.kwcoder.vote.mapper.generate;
 
 import club.kwcoder.vote.dataobject.CandidateDO;
 import club.kwcoder.vote.dataobject.CandidateDOExample;
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface CandidateMapper {

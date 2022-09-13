@@ -5,12 +5,10 @@ import club.kwcoder.vote.dto.PollDTO;
 import club.kwcoder.vote.service.PollUserService;
 import club.kwcoder.vote.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("poll")
@@ -25,6 +23,12 @@ public class PollUserController {
         int userId = 6;
         String ipAddr = IpUtil.getIpAddr(request);
         return pollUserService.doPoll(poll, userId, ipAddr);
+    }
+
+    @GetMapping("info")
+    public ResultBean<List<PollDTO>> info(@RequestParam("voteId") Integer voteId) {
+        int userId = 6;
+        return pollUserService.info(voteId, userId);
     }
 
 }

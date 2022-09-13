@@ -2,20 +2,106 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.kwcoder.vote.mapper.custom.PollCustomMapper">
     <resultMap id="BaseResultMap" type="club.kwcoder.vote.dataobject.PollDO">
-        <result column="user_id" jdbcType="INTEGER" property="userId" />
-        <result column="vote_id" jdbcType="INTEGER" property="voteId" />
-        <result column="candidate_id" jdbcType="INTEGER" property="candidateId" />
-        <result column="score" jdbcType="INTEGER" property="score" />
-        <result column="ip" jdbcType="VARCHAR" property="ip" />
-        <result column="ip_addr" jdbcType="VARCHAR" property="ipAddr" />
-        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="vote_id" jdbcType="INTEGER" property="voteId"/>
+        <result column="candidate_id" jdbcType="INTEGER" property="candidateId"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="ip_addr" jdbcType="VARCHAR" property="ipAddr"/>
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp"/>
     </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        user_id, vote_id, candidate_id, score, ip, ip_addr, create_timestamp
+    </sql>
     <insert id="insertBatch" parameterType="club.kwcoder.vote.dataobject.PollDO">
         insert into poll
-            (user_id, vote_id, candidate_id, score, ip, create_timestamp)
-            values
+        (user_id, vote_id, candidate_id, score, ip, create_timestamp)
+        values
         <foreach collection="polls" item="item" separator=",">
             (#{item.userId}, #{item.voteId}, #{item.candidateId}, #{item.score}, #{item.ip}, #{item.createTimestamp})
         </foreach>
     </insert>
+
+    <select id="selectVoteIdsByUserId" resultType="java.lang.Integer">
+        SELECT DISTINCT vote_id
+        FROM poll
+        WHERE poll.user_id = #{userId}
+    </select>
+
+    <select id="selectByExample" parameterType="club.kwcoder.vote.dataobject.PollDOExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from poll
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+
 </mapper>
