@@ -2,12 +2,10 @@ package club.kwcoder.vote.service.impl;
 
 import club.kwcoder.vote.bean.PageBean;
 import club.kwcoder.vote.bean.ResultBean;
-import club.kwcoder.vote.dataobject.PollDOExample;
 import club.kwcoder.vote.dataobject.VoteCandidateDO;
 import club.kwcoder.vote.dataobject.VoteDO;
 import club.kwcoder.vote.dataobject.VoteUserDO;
 import club.kwcoder.vote.dto.CandidateDTO;
-import club.kwcoder.vote.dto.PollDTO;
 import club.kwcoder.vote.dto.PollSortDTO;
 import club.kwcoder.vote.dto.VoteDTO;
 import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
@@ -19,7 +17,6 @@ import club.kwcoder.vote.mapper.generate.VoteUserMapper;
 import club.kwcoder.vote.service.VoteAdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -108,8 +103,4 @@ public class VoteAdminServiceImpl implements VoteAdminService {
         return ResultBean.success("查询成功！", pollSortDTOs);
     }
 
-    @Override
-    public ResultBean<String> info(Integer voteId) {
-        return null;
-    }
 }

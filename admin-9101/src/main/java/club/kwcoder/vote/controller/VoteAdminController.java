@@ -42,9 +42,5 @@ public class VoteAdminController {
         return voteService.sort(voteId);
     }
 
-    @GetMapping("info")
-    public ResultBean<String> info(@RequestParam("voteId") Integer voteId) {
-        return voteService.info(voteId);
-    }
 
 }

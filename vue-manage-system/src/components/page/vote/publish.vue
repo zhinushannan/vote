@@ -90,6 +90,48 @@
       </el-table>
     </el-dialog>
 
+    <el-dialog
+        :title="voteInfo.title"
+        :visible.sync="voteVisible"
+        width="47%">
+      <el-table
+          :data="voteInfo.data"
+          style="width: 100%"
+      >
+        <el-table-column
+            prop="userId"
+            label="用户ID"
+            align="center"
+            width="60"/>
+        <el-table-column
+            prop="username"
+            label="用户姓名"
+            align="center"
+            width="180" />
+        <el-table-column
+            prop="score"
+            label="投票分数"
+            align="center"
+            width="50" />
+        <el-table-column
+            prop="candidateName"
+            label="候选人"
+            align="center"
+            width="150" />
+        <el-table-column
+            prop="createTimestamp"
+            label="投票时间"
+            align="center"
+            :formatter="dateFormat1"
+            width="180" />
+        <el-table-column
+            prop="ip"
+            label="投票IP"
+            align="center"
+            width="100" />
+      </el-table>
+    </el-dialog>
+
   </section>
 </template>
 
@@ -105,7 +147,9 @@ export default {
         data: []
       },
       sortVisible: false,
-      sortInfo: {}
+      sortInfo: {},
+      voteVisible: false,
+      voteInfo: {}
     }
   },
   methods: {
@@ -147,8 +191,12 @@ export default {
     },
     info(index, row) {
       let _this = this
-      _this.$axios.get(`admin/vote/info?voteId=${row.voteId}`).then((resp) => {
-
+      _this.voteInfo = {}
+      _this.$axios.get(`admin/poll/info?voteId=${row.voteId}`).then((resp) => {
+        _this.voteInfo["data"] = resp.data.data
+        _this.voteInfo["title"] = `${row.title}的详情`
+        console.log(_this.voteInfo)
+        _this.voteVisible = true
       })
     }
   },
