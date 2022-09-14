@@ -76,7 +76,12 @@ export default {
         return
       }
       _this.$axios.post("admin/vote/save", _this.form).then((resp) => {
-        console.log(resp)
+        if (resp.data.flag) {
+          _this.$message.success(resp.data.message)
+          _this.form = {}
+        } else {
+          _this.$message.error(resp.data.message)
+        }
       })
     }
   },

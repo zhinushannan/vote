@@ -43,6 +43,12 @@
                 @click="info(scope.$index, scope.row)"
             >查看详情
             </el-button>
+            <el-button
+                type="text"
+                icon="el-icon-edit"
+                @click="del(scope.$index, scope.row)"
+            >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -169,6 +175,16 @@ export default {
         _this.voteInfo["title"] = `${row.title}的详情`
         console.log(_this.voteInfo)
         _this.voteVisible = true
+      })
+    },
+    del(index, row) {
+      let _this = this
+      _this.$axios.get(`admin/vote/delete?voteId=${row.voteId}`).then((resp) => {
+        if (resp.data.flag) {
+          _this.$message.success(resp.data.message)
+        } else {
+          _this.$message.error(resp.data.message)
+        }
       })
     }
   },

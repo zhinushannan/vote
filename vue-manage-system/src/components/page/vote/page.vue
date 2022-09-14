@@ -107,7 +107,11 @@ export default {
         scores: _this.vote.scores
       }
       _this.$axios.post("user/poll/do", data).then((resp) => {
-        console.log(resp)
+        if (resp.data.flag) {
+          _this.$message.success(resp.data.message)
+        } else {
+          _this.$message.error(resp.data.message)
+        }
       })
     },
     handleClose() {

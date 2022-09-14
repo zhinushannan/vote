@@ -12,7 +12,7 @@
         <el-col :xs="16" :sm="16" :md="16" :lg="16" :xl="16">
 
           <el-row :gutter="20">
-            <el-col :span="6" v-for="(item, index) in page.data" :key="index" style="margin-bottom: 25px">
+            <el-col :span="8" v-for="(item, index) in page.data" :key="index" style="margin-bottom: 25px">
               <el-card :body-style="{ padding: '0px' }">
                 <el-image
                     style="width: 100%; height: 220px"
@@ -22,16 +22,14 @@
                 </el-image>
                 <div style="padding: 14px;">
                   <span>{{ item.name }}</span>
-                  <span>{{ item.abstractOfCandidate }}</span>
-                  <div class="bottom clearfix">
+                    <div class="bottom clearfix">
                     <el-popover
                         placement="right"
-                        width="600"
+                        width="350"
                         trigger="click">
                       <el-table :data="itemHistory[item['candidateId']]">
-                        <el-table-column property="versionId" label="版本号"></el-table-column>
-                        <el-table-column property="modifyTimestamp" label="创建时间"></el-table-column>
-                        <el-table-column property="versionDescription" label="版本描述"></el-table-column>
+                        <el-table-column property="versionId" label="版本号" width="75"></el-table-column>
+                        <el-table-column property="modifyTimestamp" width="150" label="创建时间" :formatter="dateFormat"></el-table-column>
                         <el-table-column
                             label="操作">
                           <template scope="scope">
@@ -41,10 +39,22 @@
                                 size="small">
                               查看
                             </el-button>
+                            <el-popconfirm
+                                title="恢复后将丢失后续版本，是否确认？"
+                                @confirm="recovery(scope.$index, scope.row)"
+                            >
+                              <el-button
+                                  type="text"
+                                  size="small"
+                                  slot="reference">
+                                恢复
+                              </el-button>
+                            </el-popconfirm>
+
                           </template>
                         </el-table-column>
                       </el-table>
-                      <el-button slot="reference" type="text" class="button" @click="getHistory(item)">历史版本
+                      <el-button slot="reference" type="text">历史版本
                       </el-button>
                     </el-popover>
 
@@ -61,6 +71,16 @@
               </el-card>
             </el-col>
           </el-row>
+
+          <el-pagination
+              @prev-click="prevPage"
+              @next-click="nextPage"
+              @current-change="currentPage"
+              :current-page.sync="page.page"
+              :page-size="page.size"
+              layout="total, prev, pager, next"
+              :total="page.total">
+          </el-pagination>
 
         </el-col>
         <el-col :xs="8" :sm="8" :md="8" :lg="8" :xl="8">
@@ -134,7 +154,7 @@ export default {
     return {
       page: {
         page: 1,
-        size: 8,
+        size: 6,
         total: 0,
         data: []
       },
@@ -146,10 +166,26 @@ export default {
     }
   },
   methods: {
+    prevPage(){
+      this.page.page--
+      this.list()
+    },
+    nextPage(){
+      this.page.page++
+      this.list()
+    },
+    currentPage(page) {
+      this.page.page = page
+      this.list()
+    },
     list() {
       let _this = this
       _this.$axios.get(`admin/candidate/list?page=${_this.page['page']}&size=${_this.page['size']}`).then((resp) => {
         _this.page = resp.data.data
+        let data = _this.page.data
+        for(let i in data) {
+          _this.getHistory(data[i]['candidateId'])
+        }
       })
     },
     introduction(item) {
@@ -157,13 +193,10 @@ export default {
       _this.$refs['introduction_h1'].innerHTML = "候选人：" + item.name + "简介"
       _this.$refs['introduction_div'].innerHTML = item.introductionHtml
     },
-    getHistory(item) {
+    getHistory(candidateId) {
       let _this = this
-      if (_this.itemHistory[item['candidateId']]) {
-        return
-      }
-      _this.$axios.get(`admin/candidate/history?candidateId=${item['candidateId']}`).then((resp) => {
-        _this.itemHistory[item['candidateId']] = resp.data.data
+      _this.$axios.get(`admin/candidate/history?candidateId=${candidateId}`).then((resp) => {
+        _this.$set(_this.itemHistory, candidateId, resp.data.data)
       })
     },
     version(index, candidateId) {
@@ -171,6 +204,17 @@ export default {
       let item = _this.itemHistory[candidateId][index]
       _this.$refs['introduction_h1'].innerHTML = "候选人：" + item.candidateName + "简介（版本：" + item['versionId'] + "）"
       _this.$refs['introduction_div'].innerHTML = item.introductionHtml
+    },
+    recovery(index, row) {
+      let _this = this
+      _this.$axios.get(`admin/candidate/recovery?candidateId=${row['candidateId']}&versionId=${row['versionId']}`).then((resp) => {
+        if (resp.data.flag) {
+          _this.$message.success(resp.data.message)
+          _this.getHistory(row['candidateId'])
+        } else {
+          _this.$message.error(resp.data.message)
+        }
+      })
     },
     edit(item) {
       let _this = this
@@ -189,6 +233,8 @@ export default {
         if (resp.data.flag) {
           _this.$message.success(resp.data.message)
           _this.list()
+        } else {
+          _this.$message.error(resp.data.message)
         }
       })
     },
@@ -246,11 +292,18 @@ export default {
           _this.$message.success(resp.data.message)
           _this.form = {}
           _this.editVisible = false
+          _this.list()
         } else {
           _this.$message.error(resp.data.message)
         }
       })
-    }
+    },
+    dateFormat(row) {
+      if (!row.modifyTimestamp) {
+        return ""
+      }
+      return row.modifyTimestamp.slice(0, 19).replace("T", " ")
+    },
   },
   mounted() {
     let _this = this

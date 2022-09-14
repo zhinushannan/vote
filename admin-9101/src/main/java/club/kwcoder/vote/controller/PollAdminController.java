@@ -15,6 +15,9 @@ import java.util.List;
 @RequestMapping("poll")
 public class PollAdminController {
 
+    public static final String BUSINESS = "管理员-投票信息";
+    public static final String info = "管理员-查看信息";
+
     @Autowired
     private PollAdminService pollAdminService;
 

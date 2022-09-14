@@ -1,4 +1,4 @@
-package club.kwcoder.vote.common.controller;
+package club.kwcoder.vote.controller;
 
 import club.kwcoder.vote.bean.ResultBean;
 import club.kwcoder.vote.dataobject.ImageDO;
@@ -19,6 +19,8 @@ import java.util.Set;
 @RequestMapping("image")
 public class ImageController {
 
+    public static final String BUSINESS = "公共-图片";
+    public static final String upload = "上传";
     @Autowired
     private ImageService imageService;
 

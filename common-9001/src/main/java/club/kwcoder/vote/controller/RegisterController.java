@@ -1,4 +1,4 @@
-package club.kwcoder.vote.common.controller;
+package club.kwcoder.vote.controller;
 
 import club.kwcoder.vote.bean.ResultBean;
 import club.kwcoder.vote.dataobject.ProvinceDO;
@@ -16,6 +16,10 @@ import java.util.List;
 @RequestMapping("register")
 public class RegisterController {
 
+    public static final String BUSINESS = "公共-注册";
+    public static final String register = "注册";
+    public static final String info = "完善信息";
+    public static final String addRole = "增加权限";
     @Autowired
     private RegisterService registerService;
 

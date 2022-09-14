@@ -21,7 +21,7 @@
         <div class="login-btn">
           <el-button type="primary" @click="submitForm()">登录</el-button>
         </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
+        <el-link type="primary" href="/#/register">注册</el-link>
       </el-form>
     </div>
   </div>
@@ -32,8 +32,8 @@ export default {
   data: function () {
     return {
       param: {
-        username: 'admin',
-        password: '123123',
+        username: '18762237071',
+        password: '18762237071',
       },
       rules: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -43,14 +43,29 @@ export default {
   },
   methods: {
     submitForm() {
+      let _this = this
       this.$refs.login.validate(valid => {
         if (valid) {
-          this.$message.success('登录成功');
-          localStorage.setItem('ms_username', this.param.username);
-          this.$router.push('/');
+          _this.param['phone'] = _this.param['username']
+          _this.$axios.post("common/login", _this.param).then((resp) => {
+            if (resp.data.flag) {
+              this.$message.success('登录成功！');
+              localStorage.setItem('authorization', resp.headers["authorization"]);
+
+              let roleStr = resp.headers["rol"]
+              let role = roleStr.substring(1, roleStr.length - 1).split(", ")
+              localStorage.setItem('role', role);
+
+              let name = resp.headers["name"]
+              localStorage.setItem('name', name);
+
+              this.$router.push('/dashboard');
+            } else {
+              _this.$message.error(resp.data.message)
+            }
+          })
         } else {
-          this.$message.error('请输入账号和密码');
-          console.log('error submit!!');
+          this.$message.error('请按提示输入账号密码');
           return false;
         }
       });

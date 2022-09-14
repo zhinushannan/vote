@@ -31,6 +31,7 @@
         <div class="register-btn">
           <el-button type="primary" @click="submitForm()">注册</el-button>
         </div>
+        <el-link type="primary" href="/#/login">登录</el-link>
       </el-form>
     </div>
 

@@ -8,8 +8,10 @@ import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
 import club.kwcoder.vote.mapper.generate.CandidateMapper;
 import club.kwcoder.vote.mapper.generate.CandidateUserMapper;
 import club.kwcoder.vote.mapper.generate.CandidateVersioinMapper;
+import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.service.CandidateService;
 import club.kwcoder.vote.util.StrCustomUtils;
+import cn.hutool.core.lang.func.VoidFunc;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Autowired
     private CandidateDTOMapper candidateDTOMapper;
+
+    @Autowired
+    private VoteCandidateMapper voteCandidateMapper;
 
     @Override
     @Transactional
@@ -119,14 +124,14 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public ResultBean<PageBean<CandidateDTO>> list(Integer page, Integer size, Map<String, Object> conditions) {
+    public ResultBean<PageBean<CandidateDTO>> list(Integer page, Integer size, int userId) {
         // 分页查询candidateId
         if (page > 0) {
             PageHelper.startPage(page, size);
         }
         CandidateUserDOExample candidateUserDOExample = new CandidateUserDOExample();
         candidateUserDOExample.createCriteria()
-                .andUserIdEqualTo((Integer) conditions.get("userId"));
+                .andUserIdEqualTo(userId);
         List<CandidateUserDO> candidateUserDOS = candidateUserMapper.selectByExample(candidateUserDOExample);
         List<Integer> candidateIds = candidateUserDOS.stream().map(CandidateUserDO::getCandidateId).collect(Collectors.toList());
         long total = PageInfo.of(candidateUserDOS).getTotal();
@@ -161,6 +166,13 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     @Transactional
     public ResultBean<String> delete(Integer candidateId) {
+        VoteCandidateDOExample voteCandidateDOExample = new VoteCandidateDOExample();
+        voteCandidateDOExample.createCriteria().andCandidateIdEqualTo(candidateId);
+        long l = voteCandidateMapper.countByExample(voteCandidateDOExample);
+        if (l > 0) {
+            return ResultBean.forbidden("该候选人仍在投票中，无法删除！");
+        }
+
         CandidateVersioinDOExample candidateVersioinDOExample = new CandidateVersioinDOExample();
         candidateVersioinDOExample.createCriteria().andCandidateIdEqualTo(candidateId);
         candidateVersioinMapper.deleteByExample(candidateVersioinDOExample);
@@ -174,6 +186,37 @@ public class CandidateServiceImpl implements CandidateService {
         candidateMapper.deleteByExample(candidateDOExample);
 
         return ResultBean.success("删除成功！");
+    }
+
+
+    @Override
+    @Transactional
+    public ResultBean<String> recovery(Integer candidateId, Integer versionId, int userId) {
+        CandidateUserDOExample candidateUserDOExample = new CandidateUserDOExample();
+        candidateUserDOExample.createCriteria()
+                .andCandidateIdEqualTo(candidateId)
+                .andUserIdEqualTo(userId);
+        List<CandidateUserDO> candidateUserDOS = candidateUserMapper.selectByExample(candidateUserDOExample);
+
+        if (candidateUserDOS.size() == 0) {
+            return ResultBean.notFound("候选人不存在！");
+        }
+
+        CandidateDO candidateDO = candidateMapper.selectByPrimaryKey(candidateId);
+        if (candidateDO.getVersionCurrent() < versionId) {
+            return ResultBean.notFound("版本不存在！");
+        }
+
+        candidateDO.setVersionCurrent(versionId);
+        candidateMapper.updateByPrimaryKey(candidateDO);
+
+        CandidateVersioinDOExample candidateVersioinDOExample = new CandidateVersioinDOExample();
+        candidateVersioinDOExample.createCriteria()
+                .andCandidateIdEqualTo(candidateId)
+                .andVersionIdGreaterThan(versionId);
+        candidateVersioinMapper.deleteByExample(candidateVersioinDOExample);
+
+        return ResultBean.success("恢复成功！");
     }
 
 }

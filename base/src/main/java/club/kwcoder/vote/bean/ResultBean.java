@@ -17,6 +17,13 @@ public class ResultBean<T> {
     private T data;
 
     /**
+     *
+     * @return 200, false, 系统繁忙，请稍后重试, null
+     */
+    public static <T> ResultBean<T> buys() {
+        return new ResultBean<>(200, false, "系统繁忙，请稍后重试", null);
+    }
+    /**
      * @return 200, true, message, null
      */
     public static <T> ResultBean<T> success(String message) {

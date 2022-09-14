@@ -14,9 +14,11 @@ public interface CandidateService {
 
     ResultBean<String> update(CandidateDTO candidate, Integer userId);
 
-    ResultBean<PageBean<CandidateDTO>> list(Integer page, Integer size, Map<String, Object> conditions);
+    ResultBean<PageBean<CandidateDTO>> list(Integer page, Integer size, int userId);
 
     ResultBean<List<CandidateVersioinDO>> history(Integer candidateId);
 
     ResultBean<String> delete(Integer candidateId);
+
+    ResultBean<String> recovery(Integer candidateId, Integer versionId, int userId);
 }

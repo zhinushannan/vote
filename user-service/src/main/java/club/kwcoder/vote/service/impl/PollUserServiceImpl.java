@@ -10,6 +10,7 @@ import club.kwcoder.vote.mapper.generate.PollMapper;
 import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
 import club.kwcoder.vote.mapper.generate.VoteMapper;
 import club.kwcoder.vote.service.PollUserService;
+import club.kwcoder.vote.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +42,17 @@ public class PollUserServiceImpl implements PollUserService {
     @Autowired
     private VoteCandidateMapper voteCandidateMapper;
 
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Override
     @Transactional
     public ResultBean<String> doPoll(PollDTO poll, int userId, String ipAddr) {
+        Object o = redisUtils.get("vote:" + poll.getVoteId() + ":" + userId);
+        if (null != o) {
+            return ResultBean.forbidden("您的投票过于频繁，请稍后重试！");
+        }
+
         Integer voteId = poll.getVoteId();
         VoteDOExample voteDOExample = new VoteDOExample();
         voteDOExample.createCriteria().andVoteIdEqualTo(voteId);
@@ -88,6 +96,7 @@ public class PollUserServiceImpl implements PollUserService {
 
         pollCustomMapper.insertBatch(polls);
 
+        redisUtils.set("vote:" + poll.getVoteId() + ":" + userId, "flag", 60);
         return ResultBean.success("投票成功！");
     }
 

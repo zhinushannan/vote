@@ -2,24 +2,20 @@ package club.kwcoder.vote.service.impl;
 
 import club.kwcoder.vote.bean.PageBean;
 import club.kwcoder.vote.bean.ResultBean;
-import club.kwcoder.vote.dataobject.VoteCandidateDO;
-import club.kwcoder.vote.dataobject.VoteCandidateDOExample;
-import club.kwcoder.vote.dataobject.VoteDO;
-import club.kwcoder.vote.dataobject.VoteUserDO;
+import club.kwcoder.vote.dataobject.*;
 import club.kwcoder.vote.dto.PollSortDTO;
 import club.kwcoder.vote.dto.VoteDTO;
 import club.kwcoder.vote.mapper.custom.CandidateDTOMapper;
 import club.kwcoder.vote.mapper.custom.PollSortDTOCustomMapper;
 import club.kwcoder.vote.mapper.custom.VoteCandidateCustomMapper;
 import club.kwcoder.vote.mapper.custom.VoteCustomMapper;
-import club.kwcoder.vote.mapper.generate.VoteCandidateMapper;
-import club.kwcoder.vote.mapper.generate.VoteMapper;
-import club.kwcoder.vote.mapper.generate.VoteUserMapper;
+import club.kwcoder.vote.mapper.generate.*;
 import club.kwcoder.vote.service.VoteAdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +43,18 @@ public class VoteAdminServiceImpl implements VoteAdminService {
 
     @Autowired
     private VoteCandidateMapper voteCandidateMapper;
+
+    @Autowired
+    private CandidateUserMapper candidateUserMapper;
+
+    @Autowired
+    private CandidateMapper candidateMapper;
+
+    @Autowired
+    private CandidateVersioinMapper candidateVersioinMapper;
+
+    @Autowired
+    private PollMapper pollMapper;
 
     @Override
     public ResultBean<String> save(VoteDTO vote, int userId) {
@@ -118,5 +126,26 @@ public class VoteAdminServiceImpl implements VoteAdminService {
 
         return ResultBean.success("查询成功！", pollSortDTOs);
     }
+
+    @Override
+    @Transactional
+    public ResultBean<String> delete(Integer voteId) {
+        VoteUserDOExample voteUserDOExample = new VoteUserDOExample();
+        voteUserDOExample.createCriteria().andVoteIdEqualTo(voteId);
+        voteUserMapper.deleteByExample(voteUserDOExample);
+
+        PollDOExample pollDOExample = new PollDOExample();
+        pollDOExample.createCriteria().andVoteIdEqualTo(voteId);
+        pollMapper.deleteByExample(pollDOExample);
+
+        VoteCandidateDOExample voteCandidateDOExample = new VoteCandidateDOExample();
+        voteCandidateDOExample.createCriteria().andCandidateIdEqualTo(voteId);
+        voteCandidateMapper.deleteByExample(voteCandidateDOExample);
+
+        voteMapper.deleteByPrimaryKey(voteId);
+
+        return ResultBean.success("删除成功！");
+    }
+
 
 }

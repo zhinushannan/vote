@@ -52,21 +52,6 @@ public class RegisterServiceImpl implements RegisterService {
         return registerByHasRecord(users.get(0));
     }
 
-
-    /**
-     * 没有用户记录的注册
-     */
-    private ResultBean<List<ProvinceDO>> registerByNoRecord(RegisterDTO register) {
-        UserDO userDO = UserDO.builder()
-                .phone(register.getPhone())
-                .password(register.getPassword())
-                .createTimestamp(new Date())
-                .build();
-        userMapper.insertSelective(userDO);
-        List<ProvinceDO> provinces = provinceMapper.selectByExample(new ProvinceDOExample());
-        return ResultBean.success("注册成功，请按提示进一步完成信息！", provinces);
-    }
-
     /**
      * 有用户记录的注册
      */
@@ -123,7 +108,6 @@ public class RegisterServiceImpl implements RegisterService {
                 .build();
         userMapper.insertSelective(userDO);
 
-        System.out.println(userDO);
         // 插入权限
         UserRoleDO userRoleDO = UserRoleDO.builder()
                 .roleId(register.getRoleId())

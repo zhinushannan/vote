@@ -14,19 +14,6 @@
             <i class="el-icon-rank"></i>
           </el-tooltip>
         </div>
-        <!-- 消息中心 -->
-        <div class="btn-bell">
-          <el-tooltip
-              effect="dark"
-              :content="message?`有${message}条未读消息`:`消息中心`"
-              placement="bottom"
-          >
-            <router-link to="/tabs">
-              <i class="el-icon-bell"></i>
-            </router-link>
-          </el-tooltip>
-          <span class="btn-bell-badge" v-if="message"></span>
-        </div>
         <!-- 用户头像 -->
         <div class="user-avator">
           <img src="../../assets/img/img.jpg"/>
@@ -38,9 +25,6 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
           <el-dropdown-menu slot="dropdown">
-            <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-              <el-dropdown-item>项目仓库</el-dropdown-item>
-            </a>
             <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -62,15 +46,20 @@ export default {
   },
   computed: {
     username() {
-      let username = localStorage.getItem('ms_username');
+      let username = localStorage.getItem('name');
       return username ? username : this.name;
     }
   },
   methods: {
     // 用户名下拉菜单选择事件
     handleCommand(command) {
-      if (command == 'loginout') {
-        localStorage.removeItem('ms_username');
+      if (command === 'loginout') {
+        let _this = this
+        localStorage.removeItem('name');
+        localStorage.removeItem("authorization")
+        _this.$axios.get("common/logout").then((resp) => {
+          _this.$message.success("退出成功！")
+        })
         this.$router.push('/login');
       }
     },

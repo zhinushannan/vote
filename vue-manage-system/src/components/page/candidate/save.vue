@@ -26,6 +26,7 @@
                 :file-list="form.fileList"
                 :on-success="uploadSuccess"
                 :on-exceed="exceed"
+                :headers="headers"
                 :on-preview="handlePictureCardPreview">
               <i class="el-icon-plus"></i>
             </el-upload>
@@ -58,7 +59,8 @@ export default {
     return {
       form: {},
       dialogImageUrl: '',
-      dialogVisible: false
+      dialogVisible: false,
+      headers: {authorization: localStorage.getItem('authorization')}
     }
   },
   components: {

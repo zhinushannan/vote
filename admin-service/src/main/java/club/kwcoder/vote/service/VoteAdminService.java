@@ -18,4 +18,5 @@ public interface VoteAdminService {
 
     ResultBean<List<PollSortDTO>> sort(Integer voteId);
 
+    ResultBean<String> delete(Integer voteId);
 }
