@@ -142,7 +142,7 @@ export default {
   methods: {
     list() {
       let _this = this
-      _this.$axios.get(`admin/vote/list?page=${_this.page.page}&size=${_this.page.size}&status=0`).then((resp) => {
+      _this.$axios.get(`admin/vote/list?page=${_this.page.page}&size=${_this.page.size}&status=1`).then((resp) => {
         _this.page = resp.data.data
       })
     },
@@ -182,6 +182,7 @@ export default {
       _this.$axios.get(`admin/vote/delete?voteId=${row.voteId}`).then((resp) => {
         if (resp.data.flag) {
           _this.$message.success(resp.data.message)
+          _this.list()
         } else {
           _this.$message.error(resp.data.message)
         }

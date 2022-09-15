@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistentConfig">
+    <option name="historyConfigList">
+      <map>
+        <entry key="candidate">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="CandidateMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="CandidateMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="CandidateDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="candidate" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="candidate" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="candidate_user">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="CandidateUserMapper" />
+              <option name="daoPackage" value="generate" />
+              <option name="daoPostfix" value="CandidateUserMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="CandidateUserDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="candidate_user" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="candidate_user" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="candidate_versioin">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="CandidateVersioinMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="CandidateVersioinMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="CandidateVersioinDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="candidate_versioin" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="candidate_versioin" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="image">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ImageMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="ImageMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="ImageDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="image" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="image" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="poll">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="PollMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="PollMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="PollDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="poll" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="poll" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="province">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="ProvinceMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper" />
+              <option name="daoPostfix" value="ProvinceMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="ProvinceDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="province" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="province_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="province" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources" />
+              <option name="xmlPackage" value="generator" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="role">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="RoleMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="RoleMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="RoleDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="role" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="role_id" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="role" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="user">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UserMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="UserMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UserDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="user" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="user" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="user_role">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="UserRoleMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="UserRoleMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="UserRoleDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="user_role" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="user_role" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="vote">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="VoteMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="VoteMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="VoteDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="vote" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="vote" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="vote_candidate">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="VoteCandidateMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="VoteCandidateMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="VoteCandidateDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="vote_candidate" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="vote_candidate" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="vote_user">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="VoteUserMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="VoteUserMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="VoteUserDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="vote_user" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="vote_user" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+        <entry key="vote_version">
+          <value>
+            <Config>
+              <option name="comment" value="true" />
+              <option name="daoMvnPath" value="src/main/java" />
+              <option name="daoName" value="VoteVersionMapper" />
+              <option name="daoPackage" value="club.kwcoder.vote.mapper.generate" />
+              <option name="daoPostfix" value="VoteVersionMapper" />
+              <option name="modelMvnPath" value="src/main/java" />
+              <option name="modelName" value="VoteVersionDO" />
+              <option name="modelPackage" value="club.kwcoder.vote.dataobject" />
+              <option name="name" value="vote_version" />
+              <option name="overrideJava" value="true" />
+              <option name="overrideXML" value="true" />
+              <option name="primaryKey" value="" />
+              <option name="projectFolder" value="$PROJECT_DIR$/base" />
+              <option name="tableName" value="vote_version" />
+              <option name="useExample" value="true" />
+              <option name="useLombokPlugin" value="true" />
+              <option name="useSchemaPrefix" value="true" />
+              <option name="xmlMvnPath" value="src/main/resources/mapper" />
+              <option name="xmlPackage" value="generate" />
+            </Config>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

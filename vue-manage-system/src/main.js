@@ -26,7 +26,7 @@ const i18n = new VueI18n({
 });
 
 Vue.prototype.$axios = Axios
-Axios.defaults.baseURL = 'http://127.0.0.1:8001'
+Axios.defaults.baseURL = 'http://localhost:8001'
 Axios.defaults.withCredentials = true
 Axios.interceptors.request.use(
     config => {

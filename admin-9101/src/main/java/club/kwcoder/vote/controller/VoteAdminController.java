@@ -23,6 +23,7 @@ public class VoteAdminController {
     public static final String list = "分页查询";
     public static final String stop = "停止";
     public static final String sort = "获取排名";
+    public static final String delete = "删除";
     @Autowired
     private VoteAdminService voteService;
     @Autowired

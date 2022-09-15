@@ -139,7 +139,7 @@ public class VoteAdminServiceImpl implements VoteAdminService {
         pollMapper.deleteByExample(pollDOExample);
 
         VoteCandidateDOExample voteCandidateDOExample = new VoteCandidateDOExample();
-        voteCandidateDOExample.createCriteria().andCandidateIdEqualTo(voteId);
+        voteCandidateDOExample.createCriteria().andVoteIdEqualTo(voteId);
         voteCandidateMapper.deleteByExample(voteCandidateDOExample);
 
         voteMapper.deleteByPrimaryKey(voteId);

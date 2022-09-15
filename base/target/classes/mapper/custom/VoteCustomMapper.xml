@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.kwcoder.vote.mapper.custom.VoteCustomMapper">
+    <resultMap id="BaseResultMap" type="club.kwcoder.vote.dataobject.VoteDO">
+        <id column="vote_id" jdbcType="INTEGER" property="voteId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="deadline" jdbcType="TIMESTAMP" property="deadline"/>
+    </resultMap>
+
+    <select id="selectByUserIdAndStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT vote.vote_id,
+               vote.`status`,
+               vote.create_timestamp,
+               vote.title,
+               vote.description,
+               vote.deadline
+        FROM vote,
+             vote_user
+        WHERE vote_user.user_id = #{userId}
+          AND vote_user.vote_id = vote.vote_id
+          AND vote.`status` = #{status}
+    </select>
+
+</mapper>
